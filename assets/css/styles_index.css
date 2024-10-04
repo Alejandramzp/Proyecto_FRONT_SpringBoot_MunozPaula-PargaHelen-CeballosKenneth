@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-image: url(/assets/img/logo_cp_a.jpg); /* Preguntarle a Hernan xd */
+    background-color: #1c242c;  /*#f0f0f5, #1c242c, #54545c */ 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 460px;
+    padding: 20px;
+}
+
+.login-box {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.logo-container {
+    margin-bottom: 20px;
+}
+
+.logo {
+    border-radius: 12px;
+    width: 100%;
+    max-width: 280px;
+    height: auto; 
+}
+
+.title {
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.label {
+    display: block;
+    margin-bottom: 8px;
+    color: #666; /* Numero del diavlo xddd */
+    font-size: 14px;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fafafa;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    border-color: #fc14dd;
+    outline: none;
+}
+
+.checkbox-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.checkbox-group input {
+    margin-right: 10px;
+}
+
+.btn {
+    background-color: #dbdbdb;
+    color: #fff;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    width: 100%;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #aaaaaa;
+}
+
+.password-link {
+    margin-top: 20px;
+}
+
+.password-link .link {
+    color: #aaaaaa;
+    text-decoration: none;
+}
+
+.password-link .link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .login-box {
+        padding: 20px;
+    }
+
+    .title {
+        font-size: 20px;
+    }
+
+    .btn {
+        font-size: 14px;
+    }
+
+    .logo {
+        max-width: 180px;
+    }
+}
