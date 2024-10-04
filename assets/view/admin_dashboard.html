@@ -1,13 +1,115 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin</title>
-    <script defer src="/assets/js/auth_check.js"></script>  <!-- Script para validar la sesión -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - ¡ColorPop!</title>
+  <link rel="shortcut icon" href="/assets/img/Logo_CP.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/styles_dashboard_admin.css">
 </head>
 <body>
-    <h1>Bienvenido al Dashboard de Administrador</h1>
-    <button onclick="logout()">Cerrar Sesión</button>
+  <!-- Sidebar Desplegable -->
+  <div class="d-flex" id="wrapper">
+    <nav id="sidebar" class="bg-dark">
+      <div class="sidebar-header text-center">
+        <img src="/assets/img/Logo_CP.png" alt="Logo" class="img-fluid mb-2">
+        <h4 class="text-light">¡ColorPop!</h4>
+      </div>
+      <ul class="list-unstyled components">
+        <li>
+          <a href="#productosSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+            <i class="fas fa-box"></i> Productos
+          </a>
+          <ul class="collapse list-unstyled" id="productosSubmenu">
+            <li><a href="#" onclick="mostrarSeccion('crearProducto')"><i class="fas fa-plus-circle"></i> Crear</a></li>
+            <li><a href="#" onclick="mostrarSeccion('verProducto')"><i class="fas fa-eye"></i> Ver</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#empleadosSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+            <i class="fas fa-users"></i> Empleados
+          </a>
+          <ul class="collapse list-unstyled" id="empleadosSubmenu">
+            <li><a href="#" onclick="mostrarSeccion('crearEmpleado')"><i class="fas fa-plus-circle"></i> Crear</a></li>
+            <li><a href="#" onclick="mostrarSeccion('verEmpleado')"><i class="fas fa-eye"></i> Ver</a></li>
+          </ul>
+        </li>
+      </ul>
+      <!-- Apartado de Contacto -->
+      <div class="sidebar-footer">
+        <h5 class="text-light">Contacto</h5>
+        <p><i class="fas fa-phone"></i> Tel: +123 456 789</p>
+        <p><a href="https://instagram.com" target="_blank" class="text-light"><i class="fab fa-instagram"></i> Instagram</a></p>
+        <p><i class="fas fa-envelope"></i> Email: contacto@mitienda.com</p>
+      </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div id="contenido" class="p-4 w-100">
+      <h2 class="text-center">Dashboard</h2>
+      <div id="crearProducto" class="contenido-seccion" style="display: none;">
+        <h3>Crear Producto</h3>
+        <form id="formCrearProducto">
+          <div class="form-group">
+            <label for="nombreProducto">Nombre del producto</label>
+            <input type="text" class="form-control" id="nombreProducto" required>
+          </div>
+          <div class="form-group">
+            <label for="descripcionProducto">Descripción</label>
+            <textarea class="form-control" id="descripcionProducto" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="precioProducto">Precio</label>
+            <input type="number" class="form-control" id="precioProducto" required>
+          </div>
+          <div class="form-group">
+            <label for="imagenProducto">Imagen URL</label>
+            <input type="text" class="form-control" id="imagenProducto" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Crear Producto</button>
+        </form>
+      </div>
+      <div id="verProducto" class="contenido-seccion" style="display: none;">
+        <h3>Productos</h3>
+        <div class="row" id="productosTarjetas"></div>
+      </div>
+      <div id="crearEmpleado" class="contenido-seccion" style="display: none;">
+        <h3>Crear Empleado</h3>
+        <form id="formCrearEmpleado">
+          <div class="form-group">
+            <label for="nombreEmpleado">Nombre del empleado</label>
+            <input type="text" class="form-control" id="nombreEmpleado" required>
+          </div>
+          <div class="form-group">
+            <label for="cargoEmpleado">Cargo</label>
+            <select class="form-control" id="cargoEmpleado" required>
+              <option>Admin</option>
+              <option>Gerente</option>
+              <option>Cajero</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="contactoEmpleado">Número de contacto</label>
+            <input type="tel" class="form-control" id="contactoEmpleado" required>
+          </div>
+          <div class="form-group">
+            <label for="imagenEmpleado">Imagen URL</label>
+            <input type="text" class="form-control" id="imagenEmpleado" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Crear Empleado</button>
+        </form>
+      </div>
+      <div id="verEmpleado" class="contenido-seccion" style="display: none;">
+        <h3>Empleados</h3>
+        <div class="row" id="empleadosTarjetas"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/js/script_dashboard_admin.js"></script>
 </body>
 </html>
