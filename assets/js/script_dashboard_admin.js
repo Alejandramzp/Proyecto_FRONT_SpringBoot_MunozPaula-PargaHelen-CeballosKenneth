@@ -22,60 +22,76 @@ function mostrarSeccion(seccionId) {
   }
 }
 
-// Función para cargar productos
-function cargarProductos() {
-  const productos = [
-    { nombre: 'Base Líquida', descripcion: 'Base mate para piel grasa', imagen: 'base.jpg' },
-    { nombre: 'Labial Rojo', descripcion: 'Labial duradero', imagen: 'labial.jpg' },
-    { nombre: 'Sombra Ojos', descripcion: 'Paleta de sombras', imagen: 'sombras.jpg' },
-    { nombre: 'Rimel Volumen', descripcion: 'Rimel resistente al agua', imagen: 'rimel.jpg' }
-  ];
+// Función para cargar productos desde la API
+async function cargarProductos() {
+  try {
+    const response = await fetch('http://172.16.101.161:8080/POS/api/producto'); // Cambia esta URL por la correcta de tu API
+    const productos = await response.json();
 
-  const contenedor = document.getElementById('productosTarjetas');
-  contenedor.innerHTML = '';
-  productos.forEach(producto => {
-    const tarjeta = `
-      <div class="col-12 col-md-6 col-lg-3 mb-4">
-        <div class="card h-100">
-          <img src="${producto.imagen}" class="card-img-top" alt="${producto.nombre}">
-          <div class="card-body">
-            <h5 class="card-title">${producto.nombre}</h5>
-            <p class="card-text">${producto.descripcion}</p>
-            <a href="#" class="btn btn-primary">Actualizar</a>
-            <a href="#" class="btn btn-danger">Eliminar</a>
+    const contenedor = document.getElementById('productosTarjetas');
+    contenedor.innerHTML = '';
+
+    productos.forEach(producto => {
+      const tarjeta = `
+        <div class="col-12 col-md-6 col-lg-3 mb-4">
+          <div class="card h-100">
+<!-- 
+            <img src="${producto.imagen || '/assets/img/default-producto.jpg'}" class="card-img-top" alt="${producto.nombre}">  Cambia la URL por defecto si es necesario
+            -->     
+            <div class="card-body">
+              <h5 class="card-title">${producto.nombre}</h5>
+              <p class="card-text">${producto.descripcion}</p>
+              <p class="card-text">Precio: $${producto.precio_unitario || 'N/A'}</p> <!-- Asegúrate de que el objeto producto tenga el campo precio -->
+              <a href="#" class="btn btn-primary">Actualizar</a>
+              <a href="#" class="btn btn-danger">Eliminar</a>
+            </div>
           </div>
         </div>
-      </div>
-    `;
-    contenedor.innerHTML += tarjeta;
-  });
+      `;
+      contenedor.innerHTML += tarjeta;
+    });
+  } catch (error) {
+    console.error('Error al cargar los productos:', error);
+    // Manejo de errores si es necesario
+  }
 }
 
-// Función para cargar empleados
-function cargarEmpleados() {
-  const empleados = [
-    { nombre: 'Juan Pérez', descripcion: 'Vendedor', imagen: 'empleado1.jpg' },
-    { nombre: 'Ana Gómez', descripcion: 'Gerente', imagen: 'empleado2.jpg' },
-    { nombre: 'Carlos Díaz', descripcion: 'Cajero', imagen: 'empleado3.jpg' },
-    { nombre: 'Lucía Rivera', descripcion: 'Atención al Cliente', imagen: 'empleado4.jpg' }
-  ];
 
-  const contenedor = document.getElementById('empleadosTarjetas');
-  contenedor.innerHTML = '';
-  empleados.forEach(empleado => {
-    const tarjeta = `
-      <div class="col-12 col-md-6 col-lg-3 mb-4">
-        <div class="card h-100">
-          <img src="${empleado.imagen}" class="card-img-top" alt="${empleado.nombre}">
-          <div class="card-body">
-            <h5 class="card-title">${empleado.nombre}</h5>
-            <p class="card-text">${empleado.descripcion}</p>
-            <a href="#" class="btn btn-primary">Actualizar</a>
-            <a href="#" class="btn btn-danger">Eliminar</a>
+// Función para cargar empleados desde la API
+async function cargarEmpleados() {
+  try {
+    const response = await fetch('http://172.16.101.161:8080/POS/api/empleado');
+    const empleados = await response.json();
+
+    const contenedor = document.getElementById('empleadosTarjetas');
+    contenedor.innerHTML = '';
+
+    empleados.forEach(empleado => {
+      const tarjeta = `
+        <div class="col-12 col-md-6 col-lg-3 mb-4">
+          <div class="card h-100">
+          <!--
+            <img src="/assets/img/default-empleado.jpg" class="card-img-top" alt="${empleado.nombres} ${empleado.apellidos}">  Reemplaza con la imagen correcta si la tienes
+            -->
+            <div class="card-body">
+              <h5 class="card-title">${empleado.nombres} ${empleado.apellidos}</h5>
+              <p class="card-text">ID: ${empleado.id_empleado}</p>
+              <p class="card-text">Rol: ${empleado.rol.nombre_rol}</p>
+              <p class="card-text">Estado: ${empleado.estado}</p>
+              <a href="#" class="btn btn-primary">Actualizar</a>
+              <a href="#" class="btn btn-danger">Eliminar</a>
+            </div>
           </div>
         </div>
-      </div>
-    `;
-    contenedor.innerHTML += tarjeta;
-  });
+      `;
+      contenedor.innerHTML += tarjeta;
+    });
+  } catch (error) {
+    console.error('Error al cargar los empleados:', error);
+    // Manejo de errores si es necesario
+  }
 }
+
+
+
+// 

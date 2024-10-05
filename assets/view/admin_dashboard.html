@@ -85,7 +85,7 @@
       <h2 class="text-center">Dashboard</h2>
       <div id="crearProducto" class="contenido-seccion" style="display: none;">
         <h3>Crear Producto</h3>
-        <form id="formCrearProducto">
+        <form id="formCrearProducto" onsubmit="return crearProducto(event);"> <!-- Agregamos la función crearProducto -->
           <div class="form-group">
             <label for="nombreProducto">Nombre del producto</label>
             <input type="text" class="form-control" id="nombreProducto" required>
@@ -98,13 +98,13 @@
             <label for="precioProducto">Precio</label>
             <input type="number" class="form-control" id="precioProducto" required>
           </div>
-          <div class="form-group">
+<!--           <div class="form-group">
             <label for="imagenProducto">Imagen URL</label>
             <input type="text" class="form-control" id="imagenProducto" required>
-          </div>
+          </div> -->
           <button type="submit" class="btn btn-primary">Crear Producto</button>
         </form>
-      </div>
+      </div>      
       <div id="verProducto" class="contenido-seccion" style="display: none;">
         <h3>Productos</h3>
         <div class="row" id="productosTarjetas"></div>
