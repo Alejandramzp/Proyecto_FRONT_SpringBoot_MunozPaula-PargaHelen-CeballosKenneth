@@ -59,7 +59,6 @@ async function cargarProductos() {
   }
 }
 
-
 // Función para cargar empleados
 function cargarEmpleados() {
   fetch('http://172.16.101.161:8080/POS/api/empleado')
@@ -74,6 +73,9 @@ function cargarEmpleados() {
       contenedor.innerHTML = ''; // Limpiar el contenedor antes de agregar nuevos empleados
 
       empleados.forEach(empleado => {
+        // Verificar si el rol existe y obtener el nombre del rol
+        const nombreRol = empleado.rol ? empleado.rol.nombre_rol : 'No definido';
+
         const tarjeta = `
           <div class="col-12 col-md-6 col-lg-3 mb-4" id="empleado-${empleado.id_empleado}">
             <div class="card h-100">
@@ -83,7 +85,7 @@ function cargarEmpleados() {
                 <p class="card-text"><strong>Número de Identificación:</strong> ${empleado.numero_identificacion}</p>
                 <p class="card-text"><strong>Teléfono:</strong> ${empleado.telefono || 'No disponible'}</p>
                 <p class="card-text"><strong>Dirección:</strong> ${empleado.direccion || 'No disponible'}</p>
-                <p class="card-text"><strong>Cargo:</strong> ${empleado.cargo || 'No definido'}</p>
+                <p class="card-text"><strong>Cargo:</strong> ${nombreRol}</p>
                 <p class="card-text"><strong>Estado:</strong> ${empleado.estado}</p>
                 <a href="#" class="btn btn-primary">Actualizar</a>
                 <a href="#" class="btn btn-danger" onclick="eliminarEmpleado(${empleado.id_empleado})">Eliminar</a>
