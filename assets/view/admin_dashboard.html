@@ -18,7 +18,6 @@
         <img src="/assets/img/Logo_Cp_B.png" alt="Logo" class="img-fluid" style="max-width: 50px;">
         ¡ColorPop!
       </a>
-
       <!-- Right Side Icons -->
       <div class="d-flex align-items-center">
         <!-- Configuración -->
@@ -42,7 +41,6 @@
       </div>
     </div>
   </header>
-
   <!-- Sidebar Desplegable -->
   <div class="d-flex" id="wrapper">
     <nav id="sidebar" class="bg-dark">
@@ -78,14 +76,17 @@
         <p><i class="fas fa-envelope"></i> Email: contacto@realxd.com</p>
       </div>
     </nav>
-
     <!-- Contenido principal -->
     <div id="contenido" class="p-4 w-100">
       <button id="toggleSidebar" class="btn btn-primary d-lg-none">Menú</button> <!-- Botón para el sidebar -->
       <h2 class="text-center">Dashboard</h2>
       <div id="crearProducto" class="contenido-seccion" style="display: none;">
         <h3>Crear Producto</h3>
-        <form id="formCrearProducto" onsubmit="return crearProducto(event);"> <!-- Agregamos la función crearProducto -->
+        <form id="formCrearProducto">
+          <div class="form-group">
+            <label for="codigoProducto">Código del producto</label>
+            <input type="text" class="form-control" id="codigoProducto" required>
+          </div>
           <div class="form-group">
             <label for="nombreProducto">Nombre del producto</label>
             <input type="text" class="form-control" id="nombreProducto" required>
@@ -95,16 +96,23 @@
             <textarea class="form-control" id="descripcionProducto" required></textarea>
           </div>
           <div class="form-group">
-            <label for="precioProducto">Precio</label>
-            <input type="number" class="form-control" id="precioProducto" required>
+            <label for="precioProducto">Precio Unitario</label>
+            <input type="number" class="form-control" id="precioProducto" required step="0.01">
           </div>
-<!--           <div class="form-group">
-            <label for="imagenProducto">Imagen URL</label>
-            <input type="text" class="form-control" id="imagenProducto" required>
-          </div> -->
+          <div class="form-group">
+            <label for="cantidadProducto">Cantidad Disponible</label>
+            <input type="number" class="form-control" id="cantidadProducto" required>
+          </div>
+          <div class="form-group">
+            <label for="estadoProducto">Estado</label>
+            <select class="form-control" id="estadoProducto" required>
+              <option value="activo">Activo</option>
+              <option value="agotado">Agotado</option>
+            </select>
+          </div>
           <button type="submit" class="btn btn-primary">Crear Producto</button>
         </form>
-      </div>      
+      </div>             
       <div id="verProducto" class="contenido-seccion" style="display: none;">
         <h3>Productos</h3>
         <div class="row" id="productosTarjetas"></div>
@@ -113,35 +121,42 @@
         <h3>Crear Empleado</h3>
         <form id="formCrearEmpleado">
           <div class="form-group">
-            <label for="nombreEmpleado">Nombre del empleado</label>
-            <input type="text" class="form-control" id="nombreEmpleado" required>
+            <label for="numeroIdentificacion">Número de identificación</label>
+            <input type="text" class="form-control" id="numeroIdentificacion" required>
+          </div>
+          <div class="form-group">
+            <label for="nombres">Nombres</label>
+            <input type="text" class="form-control" id="nombres" required>
+          </div>
+          <div class="form-group">
+            <label for="apellidos">Apellidos</label>
+            <input type="text" class="form-control" id="apellidos" required>
+          </div>
+          <div class="form-group">
+            <label for="direccion">Dirección</label>
+            <input type="text" class="form-control" id="direccion">
+          </div>
+          <div class="form-group">
+            <label for="telefono">Teléfono</label>
+            <input type="tel" class="form-control" id="telefono">
           </div>
           <div class="form-group">
             <label for="cargoEmpleado">Cargo</label>
-            <select class="form-control" id="cargoEmpleado" required>
-              <option>Admin</option>
-              <option>Gerente</option>
-              <option>Cajero</option>
+            <select class="form-control" id="id_rol" required>
+              <option value="1">Cajero</option>
+              <option value="2">Gerente</option>
+              <option value="3">Administrador</option>
             </select>
-          </div>
-          <div class="form-group">
-            <label for="contactoEmpleado">Número de contacto</label>
-            <input type="tel" class="form-control" id="contactoEmpleado" required>
-          </div>
-          <div class="form-group">
-            <label for="imagenEmpleado">Imagen URL</label>
-            <input type="text" class="form-control" id="imagenEmpleado" required>
           </div>
           <button type="submit" class="btn btn-primary">Crear Empleado</button>
         </form>
-      </div>
+      </div>            
       <div id="verEmpleado" class="contenido-seccion" style="display: none;">
         <h3>Empleados</h3>
         <div class="row" id="empleadosTarjetas"></div>
       </div>
     </div>
   </div>
-
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/assets/js/script_dashboard_admin.js"></script>
