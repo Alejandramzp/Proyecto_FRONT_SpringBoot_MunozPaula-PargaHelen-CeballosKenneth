@@ -71,11 +71,6 @@ body {
   margin: 5px 0;
 }
 
-img {
-  max-width: 100px;
-  border-radius: 50%;
-}
-
 .card {
   margin-bottom: 20px;
 }
@@ -97,6 +92,7 @@ img {
   height: 200px; /* Ajustar según sea necesario */
 }
 
+/* Ajustes para pantallas pequeñas */
 @media (max-width: 768px) {
   #sidebar {
     margin-left: -250px;
@@ -114,5 +110,77 @@ img {
 @media (max-width: 576px) {
   .card img {
     height: 150px; /* Ajuste para pantallas pequeñas */
+  }
+}
+
+/* Header fijo en la parte superior */
+header.navbar {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 20px;
+  z-index: 1000;
+  position: fixed; /* Fija el header en la parte superior */
+  top: 0;
+  left: 250px; /* Asegura que el header no tape el sidebar */
+  width: calc(100% - 250px); /* Se ajusta al ancho disponible */
+  height: 70px; /* Altura fija del header */
+}
+
+@media (max-width: 768px) {
+  header.navbar {
+    left: 0;
+    width: 100%;
+  }
+}
+
+/* Ajustar el padding-top del contenido para que no quede oculto bajo el header */
+#contenido {
+  margin-left: 250px;
+  padding: 20px;
+  padding-top: 90px; /* Ajuste para que no quede bajo el header, mayor que la altura del header */
+  transition: all 0.3s;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  border-radius: 15px;
+  width: calc(100% - 250px); /* Asegura que el contenido se ajuste al espacio disponible */
+}
+
+@media (max-width: 768px) {
+  #contenido {
+    margin-left: 0;
+    padding-top: 90px; /* Mantener el espacio en pantallas pequeñas */
+    width: 100%;
+  }
+}
+
+/* Modificaciones para el logo con la clase .colorpop */
+
+/* img {
+  max-width: 100px;
+  border-radius: 50%;
+} */
+
+/* Estilos específicos para las imágenes con clase img-fluid, excepto .colorpop */
+img.img-fluid:not(.colorpop) {
+  max-width: 100px;
+  border-radius: 50%;
+}
+
+/* Estilos para el logo .colorpop */
+.colorpop {
+  max-width: 150px; /* Ajusta este valor según tus necesidades */
+  height: auto;
+  margin-bottom: 10px; /* Ajusta el espacio debajo del logo si es necesario */
+}
+
+@media (max-width: 768px) {
+  .colorpop {
+    max-width: 120px;
+  }
+}
+
+@media (max-width: 576px) {
+  .colorpop {
+    max-width: 100px;
   }
 }
