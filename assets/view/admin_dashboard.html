@@ -1,270 +1,136 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - ¡ColorPop!</title>
-  <link rel="shortcut icon" href="/assets/img/Logo_Cp_B.png" type="image/x-icon">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link rel="stylesheet" href="/assets/css/styles_dashboard_admin.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<link rel="stylesheet" href="/assets/css/style_admin.css">
+	<title>DashBoard - ColorPop</title>
+	<link rel="shortcut icon" href="/assets/img/Logo_Cp_B.png" type="image/x-icon">
 </head>
 <body>
-  <!-- Header -->
-  <header class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
-    <div class="container-fluid">
-      <!-- Logo -->
-      <a class="navbar-brand" href="#">
-        <img src="/assets/img/Logo_Cp_B.png" alt="Logo" class="img-fluid" style="max-width: 50px;">
-        ¡ColorPop!
-      </a>
-      <!-- Right Side Icons -->
-      <div class="d-flex align-items-center">
-        <!-- Configuración -->
-        <a href="#" class="btn btn-light mr-3" title="Configuración">
-          <i class="fas fa-cog"></i>
+
+<!-- SIDEBAR -->
+<section id="sidebar">
+    <a href="#" class="brand">
+        <img src="/assets/img/Fondo_CP_Logo_B_Trans.png" alt="ColorPop Logo" class="logo">
+        <span class="text">ColorPop</span>
+    </a>
+    <ul class="side-menu top">
+		<li class="active">
+            <a href="#">
+                <i class='bx bxs-home'></i>
+                <span class="text">Inicio</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bxs-package'></i>
+                <span class="text">Crear Productos</span>
+            </a>
+        </li>
+        <li>
+			<a href="#">
+				<i class='bx bxs-box'></i>
+				<span class="text">Ver Productos</span>
+			</a>
+		</li>		
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bxs-user-plus'></i>
+                <span class="text">Crear Empleados</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bxs-user-check'></i>
+                <span class="text">Ver Empleados</span>
+            </a>
+        </li>          
+        <li>
+            <a href="#">
+                <i class='bx bx-archive'></i>
+                <span class="text">Ver Inventario</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bx-chart'></i>
+                <span class="text">Ver Ventas</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bxs-receipt'></i>
+                <span class="text">Hacer Recibo</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bxs-cart-add'></i>
+                <span class="text">Gestionar Carrito</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bxs-file-blank'></i>
+                <span class="text">Ver Facturas</span>
+            </a>
+        </li>        
+    </ul>
+    <ul class="side-menu">
+        <li>
+            <a href="#">
+                <i class='bx bxs-cog'></i>
+                <span class="text">Settings</span>
+            </a>
+        </li>
+        <li>
+            <a class="logout" href="/index.html">
+                <i class='bx bxs-log-out-circle'></i>
+                <span class="text">Logout</span>
+            </a>
+        </li>
+    </ul>
+</section>
+<!-- SIDEBAR -->
+
+<!-- CONTENT -->
+<section id="content">
+    <!-- NAVBAR -->
+    <nav>
+        <i class='bx bx-menu'></i>
+        <a href="#" class="nav-link">uwu</a>
+        <form action="#">
+            <div class="form-input">
+                <input type="search" placeholder="Search...">
+                <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+            </div>
+        </form>
+        <input type="checkbox" id="switch-mode" hidden>
+        <label for="switch-mode" class="switch-mode"></label>
+        <a href="#" class="notification">
+            <i class='bx bxs-bell'></i>
+            <span class="num">8</span>
         </a>
-
-        <!-- Perfil Dropdown -->
-        <div class="dropdown">
-          <a href="#" class="btn btn-light dropdown-toggle" id="perfilDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src="/assets/img/genshin-impact-amber.gif" alt="Perfil" class="img-fluid rounded-circle" style="max-width: 40px;">
-          </a>
-
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="perfilDropdown">
-            <a class="dropdown-item" href="#">Ver perfil</a>
-            <a class="dropdown-item" href="#">Configuración</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/index.html">Cerrar sesión</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-  <!-- Sidebar Desplegable -->
-  <div class="d-flex" id="wrapper">
-    <nav id="sidebar" class="bg-dark">
-      <div class="sidebar-header text-center">
-        <img src="/assets/img/Logo_Cp_B.png" alt="Logo" class="img-fluid mb-2">
-        <img class="colorpop" src="/assets/img/ColorPop.png" alt="ColorPop">
-      </div>
-      <ul class="list-unstyled components">
-        <li>
-          <a href="#productosSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-            <i class="fas fa-box"></i> Productos
-          </a>
-          <ul class="collapse list-unstyled" id="productosSubmenu">
-            <li><a href="#" onclick="mostrarSeccion('crearProducto')"><i class="fas fa-plus-circle"></i> Crear</a></li>
-            <li><a href="#" onclick="mostrarSeccion('verProducto')"><i class="fas fa-eye"></i> Ver</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="#empleadosSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-            <i class="fas fa-users"></i> Empleados
-          </a>
-          <ul class="collapse list-unstyled" id="empleadosSubmenu">
-            <li><a href="#" onclick="mostrarSeccion('crearEmpleado')"><i class="fas fa-plus-circle"></i> Crear</a></li>
-            <li><a href="#" onclick="mostrarSeccion('verEmpleado')"><i class="fas fa-eye"></i> Ver</a></li>
-          </ul>
-        </li>
-      </ul>
-      <!-- Apartado de Contacto -->
-      <div class="sidebar-footer">
-        <h5 class="text-light">Contacto</h5>
-        <p><i class="fas fa-phone"></i> Tel: +123 456 789</p>
-        <p><a href="https://instagram.com/paula_mzp" target="_blank" class="text-light"><i class="fab fa-instagram"></i> Instagram</a></p>
-        <p><i class="fas fa-envelope"></i> Email: contacto@realxd.com</p>
-      </div>
+        <a href="#" class="profile">
+            <img src="/assets/img/genshin-impact-amber.gif">
+        </a>
     </nav>
-    <!-- Contenido principal -->
-    <div id="contenido" class="p-4 w-100">
-      <button id="toggleSidebar" class="btn btn-primary d-lg-none">Menú</button> <!-- Botón para el sidebar -->
-      <h2 class="text-center">Dashboard</h2>
-      <div id="bienvenida" class="text-center">
-        <h2>Bienvenido al DashBoard, aquí podrás realizar tus mamadas de administración y demás xd</h2>
-        <img style="width: 100%; max-width: 400px; height: auto;" src="/assets/img/fish-spin-sha.gif" alt="" class="img-fluid">
-    </div>
-      <div id="crearProducto" class="contenido-seccion" style="display: none;">
-        <h3>Crear Producto</h3>
-        <form id="formCrearProducto">
-          <div class="form-group">
-            <label for="codigoProducto">Código del producto</label>
-            <input type="text" class="form-control" id="codigoProducto" required>
-          </div>
-          <div class="form-group">
-            <label for="nombreProducto">Nombre del producto</label>
-            <input type="text" class="form-control" id="nombreProducto" required>
-          </div>
-          <div class="form-group">
-            <label for="descripcionProducto">Descripción</label>
-            <textarea class="form-control" id="descripcionProducto" required></textarea>
-          </div>
-          <div class="form-group">
-            <label for="precioProducto">Precio Unitario</label>
-            <input type="number" class="form-control" id="precioProducto" required step="0.01">
-          </div>
-          <div class="form-group">
-            <label for="cantidadProducto">Cantidad Disponible</label>
-            <input type="number" class="form-control" id="cantidadProducto" required>
-          </div>
-          <div class="form-group">
-            <label for="estadoProducto">Estado</label>
-            <select class="form-control" id="estadoProducto" required>
-              <option value="activo">Activo</option>
-              <option value="agotado">Agotado</option>
-            </select>
-          </div>
-          <button type="submit" class="btn btn-primary">Crear Producto</button>
-        </form>
-      </div>             
-      <div id="verProducto" class="contenido-seccion" style="display: none;">
-        <h3>Productos</h3>
-        <div class="row" id="productosTarjetas"></div>
-      </div>
-      <div id="crearEmpleado" class="contenido-seccion" style="display: none;">
-        <h3>Crear Empleado</h3>
-        <form id="formCrearEmpleado">
-          <div class="form-group">
-            <label for="numeroIdentificacion">Número de identificación</label>
-            <input type="text" class="form-control" id="numeroIdentificacion" required>
-          </div>
-          <div class="form-group">
-            <label for="nombres">Nombres</label>
-            <input type="text" class="form-control" id="nombres" required>
-          </div>
-          <div class="form-group">
-            <label for="apellidos">Apellidos</label>
-            <input type="text" class="form-control" id="apellidos" required>
-          </div>
-          <div class="form-group">
-            <label for="direccion">Dirección</label>
-            <input type="text" class="form-control" id="direccion">
-          </div>
-          <div class="form-group">
-            <label for="telefono">Teléfono</label>
-            <input type="tel" class="form-control" id="telefono">
-          </div>
-          <div class="form-group">
-            <label for="cargoEmpleado">Cargo</label>
-            <select class="form-control" id="id_rol" required>
-              <option value="1">Cajero</option>
-              <option value="2">Gerente</option>
-              <option value="3">Administrador</option>
-            </select>
-          </div>
-          <button type="submit" class="btn btn-primary">Crear Empleado</button>
-        </form>
-      </div>
-      <div id="verEmpleado" class="contenido-seccion" style="display: none;">
-        <h3>Empleados</h3>
-        <div class="row" id="empleadosTarjetas"></div>
-      </div>
-    </div>
-  </div>
-<!-- Modal de actualización de empleado -->
-<div class="modal fade" id="actualizarEmpleadoModal" tabindex="-1" aria-labelledby="actualizarEmpleadoModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="actualizarEmpleadoModalLabel">Actualizar Empleado</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="formActualizarEmpleado">
-          <input type="hidden" id="empleadoId">
-          <div class="form-group">
-            <label for="numeroIdentificacionActualizar">Número de identificación</label>
-            <input type="text" class="form-control" id="numeroIdentificacionActualizar" required>
-          </div>
-          <div class="form-group">
-            <label for="nombresActualizar">Nombres</label>
-            <input type="text" class="form-control" id="nombresActualizar" required>
-          </div>
-          <div class="form-group">
-            <label for="apellidosActualizar">Apellidos</label>
-            <input type="text" class="form-control" id="apellidosActualizar" required>
-          </div>
-          <div class="form-group">
-            <label for="direccionActualizar">Dirección</label>
-            <input type="text" class="form-control" id="direccionActualizar">
-          </div>
-          <div class="form-group">
-            <label for="telefonoActualizar">Teléfono</label>
-            <input type="tel" class="form-control" id="telefonoActualizar">
-          </div>
-          <div class="form-group">
-            <label for="cargoEmpleadoActualizar">Cargo</label>
-            <select class="form-control" id="cargoEmpleadoActualizar" required>
-              <option value="1">Cajero</option>
-              <option value="2">Gerente</option>
-              <option value="3">Administrador</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="estadoEmpleadoActualizar">Estado</label>
-            <select class="form-control" id="estadoEmpleadoActualizar" required>
-              <option value="activo">Activo</option>
-              <option value="inactivo">Inactivo</option>
-            </select>
-          </div>
-          <button type="submit" class="btn btn-primary">Actualizar Empleado</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal de actualización de producto -->
-<div class="modal fade" id="actualizarProductoModal" tabindex="-1" aria-labelledby="actualizarProductoModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="actualizarProductoModalLabel">Actualizar Producto</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="formActualizarProducto">
-          <input type="hidden" id="productoId">
-          <div class="form-group">
-            <label for="codigoProductoActualizar">Código del producto</label>
-            <input type="text" class="form-control" id="codigoProductoActualizar" required>
-          </div>
-          <div class="form-group">
-            <label for="nombreProductoActualizar">Nombre del producto</label>
-            <input type="text" class="form-control" id="nombreProductoActualizar" required>
-          </div>
-          <div class="form-group">
-            <label for="descripcionProductoActualizar">Descripción</label>
-            <textarea class="form-control" id="descripcionProductoActualizar" required></textarea>
-          </div>
-          <div class="form-group">
-            <label for="precioProductoActualizar">Precio Unitario</label>
-            <input type="number" class="form-control" id="precioProductoActualizar" required step="0.01">
-          </div>
-          <div class="form-group">
-            <label for="cantidadProductoActualizar">Cantidad Disponible</label>
-            <input type="number" class="form-control" id="cantidadProductoActualizar" required>
-          </div>
-          <div class="form-group">
-            <label for="estadoProductoActualizar">Estado</label>
-            <select class="form-control" id="estadoProductoActualizar" required>
-              <option value="activo">Activo</option>
-              <option value="agotado">Agotado</option>
-            </select>
-          </div>
-          <button type="submit" class="btn btn-primary">Actualizar Producto</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/assets/js/script_dashboard_admin.js"></script>
-  <script src="/assets/js/empleados.js"></script>
-  <script src="/assets/js/productos.js"></script>
+<!-- NAVBAR -->
+
+<!-- MAIN -->
+<main>
+	<h1>Welcome Admin to the Admin Dashboard</h1>
+	<img src="/assets/img/genshin-impact-amber.gif">
+</main>
+<!-- MAIN -->
+
+</section>
+<!-- CONTENT -->
+	<script src="/assets/js/script.js"></script>
+	<script src="/assets/js/empleado.js"></script>
+	<script src="/assets/js/producto.js"></script>
 </body>
 </html>
