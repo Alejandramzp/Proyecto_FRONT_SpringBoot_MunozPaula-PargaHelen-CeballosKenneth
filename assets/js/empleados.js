@@ -43,8 +43,8 @@ function abrirActualizarModal(idEmpleado) {
             document.getElementById('apellidosActualizar').value = empleado.apellidos;
             document.getElementById('direccionActualizar').value = empleado.direccion;
             document.getElementById('telefonoActualizar').value = empleado.telefono;
-            document.getElementById('cargoEmpleadoActualizar').value = empleado.id_rol;
-            document.getElementById('estadoEmpleadoActualizar').value = empleado.estado; // Nuevo campo de estado
+            document.getElementById('cargoEmpleadoActualizar').value = nombreRol;
+            document.getElementById('estadoEmpleadoActualizar').value = empleado.estado;
 
             $('#actualizarEmpleadoModal').modal('show');
         })
@@ -62,8 +62,8 @@ document.getElementById("formActualizarEmpleado").addEventListener("submit", fun
         apellidos: document.getElementById("apellidosActualizar").value,
         direccion: document.getElementById("direccionActualizar").value,
         telefono: document.getElementById("telefonoActualizar").value,
-        id_rol: document.getElementById("cargoEmpleadoActualizar").value,
-        estado: document.getElementById("estadoEmpleadoActualizar").value // Enviar el estado seleccionado
+        nombreRol: document.getElementById("cargoEmpleadoActualizar").value,
+        estado: document.getElementById("estadoEmpleadoActualizar").value
     };
 
     fetch(`http://172.16.101.161:8080/POS/api/empleado/${idEmpleado}`, {
