@@ -1,98 +1,179 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const verProductosBtn = document.getElementById('ver-productos-btn');
-    const productosSection = document.getElementById('ver-productos');
+    const baseURL = "http://172.16.101.161:8080/ColorPop/api/productos";
     
-    // Función para obtener productos desde la API
-    async function fetchProductos() {
-        try {
-            const response = await fetch('http://172.16.101.161:8080/POS/api/producto');
-            const productos = await response.json();
-            displayProductos(productos);
-        } catch (error) {
-            console.error('Error al obtener productos:', error);
-        }
+    // Elementos del DOM
+    const crearProductosBtn = document.getElementById('crear-productos-btn');
+    const verProductosBtn = document.getElementById('ver-productos-btn');
+    const verProductosSection = document.getElementById('ver-productos');
+    const crearProductosSection = document.getElementById('crear-productos');
+
+    // Mostrar/ocultar secciones
+    crearProductosBtn.addEventListener("click", () => {
+        crearProductosSection.style.display = "block";
+        verProductosSection.style.display = "none";
+        mostrarFormularioCrear();
+    });
+
+    verProductosBtn.addEventListener("click", () => {
+        crearProductosSection.style.display = "none";
+        verProductosSection.style.display = "block";
+        obtenerProductos();
+    });
+
+    // Función para mostrar el formulario de creación de productos
+    function mostrarFormularioCrear() {
+        crearProductosSection.innerHTML = `
+            <form id="form-crear-producto">
+                <label for="codigo_producto">Código Producto:</label>
+                <input type="text" id="codigo_producto" required><br>
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" required><br>
+                <label for="descripcion">Descripción:</label>
+                <input type="text" id="descripcion" required><br>
+                <label for="precio">Precio:</label>
+                <input type="number" id="precio" required><br>
+                <label for="cantidad_disponible">Cantidad Disponible:</label>
+                <input type="number" id="cantidad_disponible" required><br>
+                <button type="submit">Crear Producto</button>
+            </form>
+        `;
+
+        // Evento de envío del formulario
+        document.getElementById('form-crear-producto').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const nuevoProducto = {
+                codigo_producto: document.getElementById('codigo_producto').value,
+                nombre: document.getElementById('nombre').value,
+                descripcion: document.getElementById('descripcion').value,
+                precio: parseFloat(document.getElementById('precio').value),
+                cantidad_disponible: parseInt(document.getElementById('cantidad_disponible').value)
+            };
+            crearProducto(nuevoProducto);
+        });
     }
 
-    // Función para mostrar los productos en tarjetas
-    function displayProductos(productos) {
-        // Limpiar el contenido anterior
-        productosSection.innerHTML = '<h1>Lista de Productos</h1>';
+    // Función para obtener productos
+    function obtenerProductos() {
+        fetch(baseURL)
+            .then(response => response.json())
+            .then(productos => {
+                mostrarProductos(productos);
+            })
+            .catch(error => console.error('Error al obtener productos:', error));
+    }
 
-        // Crear un contenedor para los productos
-        const productoContainer = document.createElement('div');
-        productoContainer.classList.add('producto-container');
-
+    // Función para mostrar productos
+    function mostrarProductos(productos) {
+        let contenido = '<table>';
+        contenido += '<tr><th>ID</th><th>Código</th><th>Nombre</th><th>Descripción</th><th>Precio</th><th>Cantidad</th><th>Acciones</th></tr>';
+        
         productos.forEach(producto => {
-            // Crear la tarjeta para cada producto
-            const productoCard = document.createElement('div');
-            productoCard.classList.add('producto-card');
-
-            // Añadir los datos del producto
-            productoCard.innerHTML = `
-                <p><strong>Código:</strong> ${producto.codigo_producto}</p>
-                <p><strong>Nombre:</strong> ${producto.nombre}</p>
-                <p><strong>Descripción:</strong> ${producto.descripcion}</p>
-                <p><strong>Precio Unitario:</strong> $${producto.precio_unitario}</p>
-                <p><strong>Cantidad Disponible:</strong> ${producto.cantidad_disponible}</p>
-                <p><strong>Estado:</strong> ${producto.estado}</p>
-                <button class="editar-btn" data-id="${producto.id_Producto}">Editar</button>
-                <button class="eliminar-btn" data-id="${producto.id_Producto}">Eliminar</button>
+            contenido += `
+                <tr>
+                    <td>${producto.id}</td>
+                    <td>${producto.codigo_producto}</td>
+                    <td>${producto.nombre}</td>
+                    <td>${producto.descripcion}</td>
+                    <td>${producto.precio}</td>
+                    <td>${producto.cantidad_disponible}</td>
+                    <td>
+                        <button onclick="editarProducto(${producto.id})">Editar</button>
+                        <button onclick="eliminarProducto(${producto.id})">Eliminar</button>
+                    </td>
+                </tr>
             `;
-
-            // Añadir la tarjeta al contenedor
-            productoContainer.appendChild(productoCard);
         });
 
-        // Añadir el contenedor de productos a la sección
-        productosSection.appendChild(productoContainer);
-
-        // Agregar eventos a los botones de Editar y Eliminar
-        document.querySelectorAll('.editar-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const productoId = this.dataset.id;
-                editarProducto(productoId);
-            });
-        });
-
-        document.querySelectorAll('.eliminar-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const productoId = this.dataset.id;
-                eliminarProducto(productoId);
-            });
-        });
+        contenido += '</table>';
+        verProductosSection.innerHTML = contenido;
     }
 
-    // Función para manejar la edición de productos (Por definir funcionalidad)
-    function editarProducto(id) {
-        alert('Editar producto con ID: ' + id);
-        // Lógica para editar productos
+    // Función para crear un producto
+    function crearProducto(producto) {
+        fetch(baseURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(producto)
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('Producto creado con éxito');
+            obtenerProductos();
+        })
+        .catch(error => console.error('Error al crear producto:', error));
     }
 
-    // Función para eliminar productos
-async function eliminarProducto(id) {
-    const confirmacion = confirm('¿Estás seguro de que quieres eliminar este producto?');
-    if (confirmacion) {
-        try {
-            const response = await fetch(`http://172.16.101.161:8080/POS/api/producto/${id}`, {
-                method: 'DELETE',
-            });
-
+    // Función para eliminar un producto
+    window.eliminarProducto = function(id) {
+        fetch(`${baseURL}/${id}`, {
+            method: 'DELETE'
+        })
+        .then(response => {
             if (response.ok) {
-                alert('Producto eliminado exitosamente');
-                // Vuelve a cargar los productos
-                fetchProductos();
+                alert('Producto eliminado con éxito');
+                obtenerProductos();
             } else {
                 alert('Error al eliminar el producto');
             }
-        } catch (error) {
-            console.error('Error al eliminar producto:', error);
-        }
+        })
+        .catch(error => console.error('Error al eliminar producto:', error));
+    };
+
+    // Función para editar un producto
+    window.editarProducto = function(id) {
+        fetch(`${baseURL}/${id}`)
+            .then(response => response.json())
+            .then(producto => {
+                crearProductosSection.style.display = "block";
+                verProductosSection.style.display = "none";
+                
+                crearProductosSection.innerHTML = `
+                    <form id="form-editar-producto">
+                        <label for="codigo_producto">Código Producto:</label>
+                        <input type="text" id="codigo_producto" value="${producto.codigo_producto}" required><br>
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" value="${producto.nombre}" required><br>
+                        <label for="descripcion">Descripción:</label>
+                        <input type="text" id="descripcion" value="${producto.descripcion}" required><br>
+                        <label for="precio">Precio:</label>
+                        <input type="number" id="precio" value="${producto.precio}" required><br>
+                        <label for="cantidad_disponible">Cantidad Disponible:</label>
+                        <input type="number" id="cantidad_disponible" value="${producto.cantidad_disponible}" required><br>
+                        <button type="submit">Actualizar Producto</button>
+                    </form>
+                `;
+
+                document.getElementById('form-editar-producto').addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    const productoActualizado = {
+                        codigo_producto: document.getElementById('codigo_producto').value,
+                        nombre: document.getElementById('nombre').value,
+                        descripcion: document.getElementById('descripcion').value,
+                        precio: parseFloat(document.getElementById('precio').value),
+                        cantidad_disponible: parseInt(document.getElementById('cantidad_disponible').value)
+                    };
+                    actualizarProducto(id, productoActualizado);
+                });
+            })
+            .catch(error => console.error('Error al obtener el producto:', error));
+    };
+
+    // Función para actualizar un producto
+    function actualizarProducto(id, producto) {
+        fetch(`${baseURL}/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(producto)
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('Producto actualizado con éxito');
+            obtenerProductos();
+        })
+        .catch(error => console.error('Error al actualizar el producto:', error));
     }
-}
-
-
-    // Cargar productos cuando se haga clic en "Ver Productos"
-    verProductosBtn.addEventListener('click', function() {
-        fetchProductos();
-    });
 });
