@@ -748,3 +748,181 @@ Aqui va el css de producto
 }
 /**/
 
+/* Contenedor general del formulario */
+.form-empleado {
+    width: 80%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo de las etiquetas del formulario */
+.form-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Estilo de los campos de entrada */
+.form-input,
+.form-select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Estilo de los botones */
+.form-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Efecto hover en el botón */
+.form-button:hover {
+    background-color: #45a049;
+}
+
+/* Asegura que todo el formulario tenga un espacio entre los elementos */
+.form-empleado label,
+.form-empleado input,
+.form-empleado select,
+.form-empleado button {
+    margin-bottom: 12px;
+}
+
+/* Mensaje de error en el formulario */
+.form-empleado .error {
+    color: red;
+    font-size: 14px;
+}
+
+/**/
+
+.product-form {
+    background: var(--light);
+    padding: 24px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.product-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: var(--poppins);
+    color: var(--dark);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--grey);
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    border-color: var(--blue);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 10px;
+    background: var(--blue);
+    color: var(--light);
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background: var(--dark);
+}
+
+/**/
+
+/* Estilo para el formulario de empleados */
+.employee-form {
+    background: var(--light);
+    padding: 24px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.employee-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: var(--poppins);
+    color: var(--dark);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--grey);
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus, .form-group select:focus {
+    border-color: var(--blue);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 10px;
+    background: var(--blue);
+    color: var(--light);
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background: var(--dark);
+}

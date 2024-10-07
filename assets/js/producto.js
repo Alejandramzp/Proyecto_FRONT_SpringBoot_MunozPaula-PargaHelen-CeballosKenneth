@@ -21,36 +21,47 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // Función para mostrar el formulario de creación de productos
-    function mostrarFormularioCrear() {
-        crearProductosSection.innerHTML = `
-            <form id="form-crear-producto">
+function mostrarFormularioCrear() {
+    crearProductosSection.innerHTML = `
+        <form id="form-crear-producto" class="product-form">
+            <h2>Crear Producto</h2>
+            <div class="form-group">
                 <label for="codigo_producto">Código Producto:</label>
-                <input type="text" id="codigo_producto" required><br>
+                <input type="text" id="codigo_producto" required>
+            </div>
+            <div class="form-group">
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" required><br>
+                <input type="text" id="nombre" required>
+            </div>
+            <div class="form-group">
                 <label for="descripcion">Descripción:</label>
-                <input type="text" id="descripcion" required><br>
+                <input type="text" id="descripcion" required>
+            </div>
+            <div class="form-group">
                 <label for="precio">Precio:</label>
-                <input type="number" id="precio" required><br>
+                <input type="number" id="precio" required>
+            </div>
+            <div class="form-group">
                 <label for="cantidad_disponible">Cantidad Disponible:</label>
-                <input type="number" id="cantidad_disponible" required><br>
-                <button type="submit">Crear Producto</button>
-            </form>
-        `;
+                <input type="number" id="cantidad_disponible" required>
+            </div>
+            <button type="submit" class="submit-btn">Crear Producto</button>
+        </form>
+    `;
 
-        // Evento de envío del formulario
-        document.getElementById('form-crear-producto').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const nuevoProducto = {
-                codigo_producto: document.getElementById('codigo_producto').value,
-                nombre: document.getElementById('nombre').value,
-                descripcion: document.getElementById('descripcion').value,
-                precio: parseFloat(document.getElementById('precio').value),
-                cantidad_disponible: parseInt(document.getElementById('cantidad_disponible').value)
-            };
-            crearProducto(nuevoProducto);
-        });
-    }
+    // Evento de envío del formulario
+    document.getElementById('form-crear-producto').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const nuevoProducto = {
+            codigo_producto: document.getElementById('codigo_producto').value,
+            nombre: document.getElementById('nombre').value,
+            descripcion: document.getElementById('descripcion').value,
+            precio: parseFloat(document.getElementById('precio').value),
+            cantidad_disponible: parseInt(document.getElementById('cantidad_disponible').value)
+        };
+        crearProducto(nuevoProducto);
+    });
+}
 
     // Función para obtener productos
     function obtenerProductos() {
@@ -128,43 +139,54 @@ function mostrarProductos(productos) {
     };
 
     // Función para editar un producto
-    window.editarProducto = function(id) {
-        fetch(`${baseURL}/${id}`)
-            .then(response => response.json())
-            .then(producto => {
-                crearProductosSection.style.display = "block";
-                verProductosSection.style.display = "none";
-                
-                crearProductosSection.innerHTML = `
-                    <form id="form-editar-producto">
+window.editarProducto = function(id) {
+    fetch(`${baseURL}/${id}`)
+        .then(response => response.json())
+        .then(producto => {
+            crearProductosSection.style.display = "block";
+            verProductosSection.style.display = "none";
+            
+            crearProductosSection.innerHTML = `
+                <form id="form-editar-producto" class="product-form">
+                    <h2>Editar Producto</h2>
+                    <div class="form-group">
                         <label for="codigo_producto">Código Producto:</label>
-                        <input type="text" id="codigo_producto" value="${producto.codigo_producto}" required><br>
+                        <input type="text" id="codigo_producto" value="${producto.codigo_producto}" required>
+                    </div>
+                    <div class="form-group">
                         <label for="nombre">Nombre:</label>
-                        <input type="text" id="nombre" value="${producto.nombre}" required><br>
+                        <input type="text" id="nombre" value="${producto.nombre}" required>
+                    </div>
+                    <div class="form-group">
                         <label for="descripcion">Descripción:</label>
-                        <input type="text" id="descripcion" value="${producto.descripcion}" required><br>
+                        <input type="text" id="descripcion" value="${producto.descripcion}" required>
+                    </div>
+                    <div class="form-group">
                         <label for="precio">Precio:</label>
-                        <input type="number" id="precio" value="${producto.precio}" required><br>
+                        <input type="number" id="precio" value="${producto.precio}" required>
+                    </div>
+                    <div class="form-group">
                         <label for="cantidad_disponible">Cantidad Disponible:</label>
-                        <input type="number" id="cantidad_disponible" value="${producto.cantidad_disponible}" required><br>
-                        <button type="submit">Actualizar Producto</button>
-                    </form>
-                `;
+                        <input type="number" id="cantidad_disponible" value="${producto.cantidad_disponible}" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Actualizar Producto</button>
+                </form>
+            `;
 
-                document.getElementById('form-editar-producto').addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    const productoActualizado = {
-                        codigo_producto: document.getElementById('codigo_producto').value,
-                        nombre: document.getElementById('nombre').value,
-                        descripcion: document.getElementById('descripcion').value,
-                        precio: parseFloat(document.getElementById('precio').value),
-                        cantidad_disponible: parseInt(document.getElementById('cantidad_disponible').value)
-                    };
-                    actualizarProducto(id, productoActualizado);
-                });
-            })
-            .catch(error => console.error('Error al obtener el producto:', error));
-    };
+            document.getElementById('form-editar-producto').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const productoActualizado = {
+                    codigo_producto: document.getElementById('codigo_producto').value,
+                    nombre: document.getElementById('nombre').value,
+                    descripcion: document.getElementById('descripcion').value,
+                    precio: parseFloat(document.getElementById('precio').value),
+                    cantidad_disponible: parseInt(document.getElementById('cantidad_disponible').value)
+                };
+                actualizarProducto(id, productoActualizado);
+            });
+        })
+        .catch(error => console.error('Error al obtener el producto:', error));
+};
 
     // Función para actualizar un producto
     function actualizarProducto(id, producto) {
