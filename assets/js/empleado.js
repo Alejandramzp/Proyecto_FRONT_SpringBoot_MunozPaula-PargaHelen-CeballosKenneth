@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const empleados = await response.json();
             displayEmpleados(empleados);
         } catch (error) {
-            console.error('Error al obtener empleados:', error);
+            console.error('No se pudieron cargar los Empleados :c:', error);
         }
     }
 
@@ -90,7 +90,6 @@ async function eliminarEmpleado(id) {
         }
     }
 }
-
 
     // Cargar empleados cuando se haga clic en "Ver Empleados"
     verEmpleadosBtn.addEventListener('click', function() {
