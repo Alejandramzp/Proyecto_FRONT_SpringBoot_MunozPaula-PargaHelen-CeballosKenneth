@@ -59,3 +59,49 @@ switchMode.addEventListener('change', function () {
         document.body.classList.remove('dark');
     }
 });
+
+
+// Manejador de eventos para cambiar el contenido del dashboard
+document.addEventListener("DOMContentLoaded", function() {
+    // Mapea los botones con las secciones correspondientes
+    const sections = {
+        "inicio-btn": "inicio",
+        "crear-productos-btn": "crear-productos",
+        "ver-productos-btn": "ver-productos",
+        "crear-empleados-btn": "crear-empleados",
+        "ver-empleados-btn": "ver-empleados",
+        "ver-inventario-btn": "ver-inventario",
+        "ver-ventas-btn": "ver-ventas",
+        "hacer-recibo-btn": "hacer-recibo",
+        "gestionar-carrito-btn": "gestionar-carrito",
+        "ver-facturas-btn": "ver-facturas"
+    };
+
+    // Obtén todas las secciones y los botones del menú
+    const allSections = document.querySelectorAll(".content-section");
+    const menuItems = document.querySelectorAll(".side-menu a");
+
+    // Función para mostrar la sección correcta y ocultar las demás
+    function showSection(sectionId) {
+        allSections.forEach(section => section.style.display = "none"); // Ocultar todas
+        document.getElementById(sectionId).style.display = "block";     // Mostrar la seleccionada
+    }
+
+    // Agregar evento click a cada ítem del menú
+    menuItems.forEach(item => {
+        item.addEventListener("click", function(e) {
+            e.preventDefault(); // Prevenir el comportamiento por defecto de los links
+            const sectionId = sections[e.target.closest("a").id]; // Obtener el id de la sección
+
+            if (sectionId) {
+                showSection(sectionId);
+
+                // Remover la clase "active" de todos los ítems
+                menuItems.forEach(link => link.parentElement.classList.remove("active"));
+
+                // Agregar la clase "active" al ítem actual
+                e.target.closest("li").classList.add("active");
+            }
+        });
+    });
+});

@@ -17,68 +17,67 @@
         <span class="text">ColorPop</span>
     </a>
     <ul class="side-menu top">
-		<li class="active">
-            <a href="#">
+        <li class="active">
+            <a href="#" id="inicio-btn">
                 <i class='bx bxs-home'></i>
                 <span class="text">Inicio</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="#" id="crear-productos-btn">
                 <i class='bx bxs-package'></i>
                 <span class="text">Crear Productos</span>
             </a>
-        </li>
+        </li>        
         <li>
-			<a href="#">
-				<i class='bx bxs-box'></i>
-				<span class="text">Ver Productos</span>
-			</a>
-		</li>		
-        </li>
+            <a href="#" id="ver-productos-btn">
+                <i class='bx bxs-box'></i>
+                <span class="text">Ver Productos</span>
+            </a>
+        </li>            
         <li>
-            <a href="#">
+            <a href="#" id="crear-empleados-btn">
                 <i class='bx bxs-user-plus'></i>
                 <span class="text">Crear Empleados</span>
             </a>
-        </li>
+        </li>        
         <li>
-            <a href="#">
+            <a href="#" id="ver-empleados-btn">
                 <i class='bx bxs-user-check'></i>
                 <span class="text">Ver Empleados</span>
             </a>
-        </li>          
+        </li>         
         <li>
-            <a href="#">
+            <a href="#" id="ver-inventario-btn">
                 <i class='bx bx-archive'></i>
                 <span class="text">Ver Inventario</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="#" id="ver-ventas-btn">
                 <i class='bx bx-chart'></i>
                 <span class="text">Ver Ventas</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="#" id="hacer-recibo-btn">
                 <i class='bx bxs-receipt'></i>
                 <span class="text">Hacer Recibo</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="#" id="gestionar-carrito-btn">
                 <i class='bx bxs-cart-add'></i>
                 <span class="text">Gestionar Carrito</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="#" id="ver-facturas-btn">
                 <i class='bx bxs-file-blank'></i>
                 <span class="text">Ver Facturas</span>
             </a>
         </li>        
-    </ul>
+    </ul>    
     <ul class="side-menu">
         <li>
             <a href="#">
@@ -122,14 +121,71 @@
 
 <!-- MAIN -->
 <main>
-	<h1>Welcome Admin to the Admin Dashboard</h1>
-	<img src="/assets/img/genshin-impact-amber.gif">
+    <!-- Sección de Inicio -->
+    <section id="inicio" class="content-section">
+        <h1>Welcome Admin to the Admin Dashboard</h1>
+        <img src="/assets/img/genshin-impact-amber.gif">
+    </section>
+
+    <!-- Sección Crear Productos -->
+    <section id="crear-productos" class="content-section" style="display: none;">
+        <h1>Crear un nuevo producto</h1>
+        <!-- Formulario o contenido para crear productos -->
+    </section>
+
+    <!-- Sección Ver Productos -->
+    <section id="ver-productos" class="content-section" style="display: none;">
+        <h1>Lista de Productos</h1>
+        <!-- Contenido de la lista de productos -->
+    </section>
+
+    <!-- Sección Crear Empleados -->
+    <section id="crear-empleados" class="content-section" style="display: none;">
+        <h1>Crear un nuevo empleado</h1>
+        <!-- Formulario o contenido para crear empleados -->
+    </section>
+
+    <!-- Sección Ver Empleados -->
+    <section id="ver-empleados" class="content-section" style="display: none;">
+        <h1>Lista de Empleados</h1>
+        <!-- Contenido de la lista de empleados -->
+    </section>
+
+    <!-- Sección Ver Inventario -->
+    <section id="ver-inventario" class="content-section" style="display: none;">
+        <h1>Inventario de Productos</h1>
+        <!-- Contenido del inventario -->
+    </section>
+
+    <!-- Sección Ver Ventas -->
+    <section id="ver-ventas" class="content-section" style="display: none;">
+        <h1>Ventas del Mes</h1>
+        <!-- Contenido de ventas -->
+    </section>
+
+    <!-- Sección Hacer Recibo -->
+    <section id="hacer-recibo" class="content-section" style="display: none;">
+        <h1>Hacer un Recibo</h1>
+        <!-- Contenido para hacer un recibo -->
+    </section>
+
+    <!-- Sección Gestionar Carrito -->
+    <section id="gestionar-carrito" class="content-section" style="display: none;">
+        <h1>Gestionar el Carrito</h1>
+        <!-- Contenido del carrito -->
+    </section>
+
+    <!-- Sección Ver Facturas -->
+    <section id="ver-facturas" class="content-section" style="display: none;">
+        <h1>Facturas</h1>
+        <!-- Contenido de las facturas -->
+    </section>
 </main>
 <!-- MAIN -->
 
 </section>
 <!-- CONTENT -->
-	<script src="/assets/js/script.js"></script>
+	<script src="/assets/js/script_admin_Dashboard.js"></script>
 	<script src="/assets/js/empleado.js"></script>
 	<script src="/assets/js/producto.js"></script>
 </body>
