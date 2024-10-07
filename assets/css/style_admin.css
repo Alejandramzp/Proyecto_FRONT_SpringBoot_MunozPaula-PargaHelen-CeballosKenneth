@@ -627,3 +627,124 @@ Aqui va el css de producto
     scrollbar-width: thin; /* Ancho de la barra de desplazamiento */
     scrollbar-color: var(--blue) var(--light); /* Color del "pulgar" y de la pista */
 }
+
+
+/**/
+
+/* Contenedor para las tarjetas */
+.empleados-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 20px;
+    padding: 20px;
+}
+
+/* Estilo para cada tarjeta */
+.empleado-card {
+    background-color: var(--light);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+/* Efecto hover para las tarjetas */
+.empleado-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Estilo de los textos dentro de las tarjetas */
+.empleado-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: var(--dark);
+}
+
+.empleado-card p {
+    margin: 5px 0;
+    color: var(--dark-grey);
+}
+
+/* Botones dentro de la tarjeta */
+.card-actions {
+    margin-top: 10px;
+}
+
+.card-actions button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: var(--blue);
+    color: white;
+    margin-right: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.card-actions button:hover {
+    background-color: var(--dark);
+}
+
+
+/**/
+
+/* Contenedor de productos */
+.productos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Flexibilidad en el número de columnas */
+    gap: 24px;
+    margin-top: 24px;
+}
+
+/* Estilos para cada tarjeta de producto */
+.producto-card {
+    background-color: var(--light);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Efecto hover para las tarjetas */
+.producto-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Estilos para la información dentro de la tarjeta */
+.producto-info h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 10px;
+}
+
+.producto-info p {
+    font-size: 14px;
+    color: var(--dark-grey);
+    margin-bottom: 8px;
+}
+
+/* Estilos para los botones de acción */
+.producto-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.producto-actions button {
+    background-color: var(--blue);
+    color: var(--light);
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.producto-actions button:hover {
+    background-color: var(--dark);
+}
+/**/
+

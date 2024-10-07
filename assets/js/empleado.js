@@ -84,31 +84,30 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Función para mostrar empleados
     function mostrarEmpleados(empleados) {
-        let contenido = '<table>';
-        contenido += '<tr><th>ID</th><th>Identificación</th><th>Nombres</th><th>Apellidos</th><th>Dirección</th><th>Teléfono</th><th>Rol</th><th>Estado</th><th>Acciones</th></tr>';
+        let contenido = '<div class="empleados-container">';
         
         empleados.forEach(empleado => {
             contenido += `
-                <tr>
-                    <td>${empleado.id}</td>
-                    <td>${empleado.identificacion}</td>
-                    <td>${empleado.nombres}</td>
-                    <td>${empleado.apellidos}</td>
-                    <td>${empleado.direccion}</td>
-                    <td>${empleado.telefono}</td>
-                    <td>${empleado.rol}</td>
-                    <td>${empleado.estado}</td>
-                    <td>
+                <div class="empleado-card">
+                    <h3>${empleado.nombres} ${empleado.apellidos}</h3>
+                    <p><strong>Identificación:</strong> ${empleado.identificacion}</p>
+                    <p><strong>Dirección:</strong> ${empleado.direccion}</p>
+                    <p><strong>Teléfono:</strong> ${empleado.telefono}</p>
+                    <p><strong>Rol:</strong> ${empleado.rol}</p>
+                    <p><strong>Estado:</strong> ${empleado.estado}</p>
+                    <div class="card-actions">
                         <button onclick="editarEmpleado(${empleado.id})">Editar</button>
                         <button onclick="eliminarEmpleado(${empleado.id})">Eliminar</button>
-                    </td>
-                </tr>
+                    </div>
+                </div>
             `;
         });
-
-        contenido += '</table>';
+        
+    
+        contenido += '</div>';
         verEmpleadosSection.innerHTML = contenido;
     }
+    
 
     // Función para crear un empleado
     function crearEmpleado(empleado) {

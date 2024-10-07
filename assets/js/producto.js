@@ -62,31 +62,37 @@ document.addEventListener("DOMContentLoaded", function() {
             .catch(error => console.error('Error al obtener productos:', error));
     }
 
-    // Función para mostrar productos
-    function mostrarProductos(productos) {
-        let contenido = '<table>';
-        contenido += '<tr><th>ID</th><th>Código</th><th>Nombre</th><th>Descripción</th><th>Precio</th><th>Cantidad</th><th>Acciones</th></tr>';
-        
-        productos.forEach(producto => {
-            contenido += `
-                <tr>
-                    <td>${producto.id}</td>
-                    <td>${producto.codigo_producto}</td>
-                    <td>${producto.nombre}</td>
-                    <td>${producto.descripcion}</td>
-                    <td>${producto.precio}</td>
-                    <td>${producto.cantidad_disponible}</td>
-                    <td>
-                        <button onclick="editarProducto(${producto.id})">Editar</button>
-                        <button onclick="eliminarProducto(${producto.id})">Eliminar</button>
-                    </td>
-                </tr>
-            `;
-        });
+    // Función para mostrar productos como tarjetas
+function mostrarProductos(productos) {
+    // Inicializamos el contenedor de productos
+    let contenido = '<div class="productos-container">';
+    
+    // Iteramos sobre los productos y generamos una tarjeta para cada uno
+    productos.forEach(producto => {
+        contenido += `
+            <div class="producto-card">
+                <div class="producto-info">
+                    <h3>${producto.nombre}</h3>
+                    <p><strong>Código:</strong> ${producto.codigo_producto}</p>
+                    <p><strong>Descripción:</strong> ${producto.descripcion}</p>
+                    <p><strong>Precio:</strong> $${producto.precio}</p>
+                    <p><strong>Cantidad disponible:</strong> ${producto.cantidad_disponible}</p>
+                </div>
+                <div class="producto-actions">
+                    <button onclick="editarProducto(${producto.id})">Editar</button>
+                    <button onclick="eliminarProducto(${producto.id})">Eliminar</button>
+                </div>
+            </div>
+        `;
+    });
 
-        contenido += '</table>';
-        verProductosSection.innerHTML = contenido;
-    }
+    // Cerramos el contenedor
+    contenido += '</div>';
+    
+    // Insertamos el contenido generado en la sección correspondiente
+    verProductosSection.innerHTML = contenido;
+}
+
 
     // Función para crear un producto
     function crearProducto(producto) {
