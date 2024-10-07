@@ -627,11 +627,3 @@ Aqui va el css de producto
     scrollbar-width: thin; /* Ancho de la barra de desplazamiento */
     scrollbar-color: var(--blue) var(--light); /* Color del "pulgar" y de la pista */
 }
-
-/* */
-
-button {
-    margin-left: 10px; /* Espacio entre el texto y el botón */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-    padding: 5px 10px; /* Padding para el botón */
-}
