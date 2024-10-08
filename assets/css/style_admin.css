@@ -1101,9 +1101,3 @@ body {
     background-color: var(--orange);
 }
 
-/* Resaltar elementos de la tabla al pasar el mouse */
-#tabla-carrito tbody tr:hover {
-    background-color: var(--light-blue);
-    cursor: pointer;
-}
-
