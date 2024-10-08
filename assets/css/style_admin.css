@@ -960,3 +960,145 @@ body {
 }
 
 /**/
+
+/* Sección de Productos */
+#productos {
+    margin-bottom: 40px;
+}
+
+#productos h2 {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 20px;
+}
+
+#lista-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.producto {
+    background-color: var(--light);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.producto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.producto h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 10px;
+}
+
+.producto p {
+    color: var(--dark-grey);
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.producto button {
+    background-color: var(--blue);
+    color: var(--light);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.producto button:hover {
+    background-color: var(--dark);
+}
+
+/* Sección de Carrito */
+#carrito h2 {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 20px;
+}
+
+#tabla-carrito {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#tabla-carrito th,
+#tabla-carrito td {
+    padding: 12px;
+    text-align: left;
+    font-size: 16px;
+    border-bottom: 1px solid var(--grey);
+}
+
+#tabla-carrito th {
+    background-color: var(--light-blue);
+    color: var(--dark);
+}
+
+#tabla-carrito td button {
+    background-color: var(--red);
+    color: var(--light);
+    padding: 5px 10px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#tabla-carrito td button:hover {
+    background-color: var(--dark-grey);
+}
+
+/* Total de la Compra */
+#total {
+    background-color: var(--light);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+#total p {
+    font-size: 18px;
+    color: var(--dark);
+    margin: 10px 0;
+}
+
+#total p span {
+    font-weight: 600;
+}
+
+#finalizar-compra {
+    background-color: var(--yellow);
+    color: var(--dark);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    font-size: 18px;
+}
+
+#finalizar-compra:hover {
+    background-color: var(--orange);
+}
+
+/* Resaltar elementos de la tabla al pasar el mouse */
+#tabla-carrito tbody tr:hover {
+    background-color: var(--light-blue);
+    cursor: pointer;
+}
+
