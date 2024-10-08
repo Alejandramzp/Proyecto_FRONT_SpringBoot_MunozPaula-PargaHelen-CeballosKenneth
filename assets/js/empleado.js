@@ -28,27 +28,27 @@ document.addEventListener("DOMContentLoaded", function() {
     
     <div class="form-group">
         <label for="identificacion" class="form-label">Identificación:</label>
-        <input type="text" id="identificacion" class="form-input" required>
+        <input type="text" id="identificacion" class="form-input" required placeholder="Ingresa el numero de documento.">
     </div>
     
     <div class="form-group">
         <label for="nombres" class="form-label">Nombres:</label>
-        <input type="text" id="nombres" class="form-input" required>
+        <input type="text" id="nombres" class="form-input" required placeholder="Ingresa los nombres del nuevo empleado.">
     </div>
     
     <div class="form-group">
         <label for="apellidos" class="form-label">Apellidos:</label>
-        <input type="text" id="apellidos" class="form-input" required>
+        <input type="text" id="apellidos" class="form-input" required placeholder="Ingresa los apellidos del nuevo empleado.">
     </div>
     
     <div class="form-group">
         <label for="direccion" class="form-label">Dirección:</label>
-        <input type="text" id="direccion" class="form-input" required>
+        <input type="text" id="direccion" class="form-input" required placeholder="Ingresa la dirección del nuevo empleado.">
     </div>
     
     <div class="form-group">
         <label for="telefono" class="form-label">Teléfono:</label>
-        <input type="text" id="telefono" class="form-input" required>
+        <input type="text" id="telefono" class="form-input" required placeholder="Ingresa el telefono del nuevo empleado.">
     </div>
     
     <div class="form-group">
@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <p><strong>Estado:</strong> ${empleado.estado}</p>
                     <div class="card-actions">
                         <button onclick="editarEmpleado(${empleado.id})">Editar</button>
-                        <button onclick="eliminarEmpleado(${empleado.id})">Eliminar</button>
+                        <button onclick="eliminarEmpleado(${empleado.id})">Despedir</button>
                     </div>
                 </div>
             `;

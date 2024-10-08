@@ -27,23 +27,23 @@ function mostrarFormularioCrear() {
             <h2>Crear Producto</h2>
             <div class="form-group">
                 <label for="codigo_producto">Código Producto:</label>
-                <input type="text" id="codigo_producto" required>
+                <input type="text" id="codigo_producto" required placeholder="Ingresa el código del producto.">
             </div>
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" required>
+                <input type="text" id="nombre" required placeholder="Ingresa el Nombre del producto.">
             </div>
             <div class="form-group">
                 <label for="descripcion">Descripción:</label>
-                <input type="text" id="descripcion" required>
+                <input type="text" id="descripcion" required placeholder="Ingresa una breve descripcion del producto.">
             </div>
             <div class="form-group">
                 <label for="precio">Precio:</label>
-                <input type="number" id="precio" required>
+                <input type="number" id="precio" required placeholder="Ingresa el precio del producto.">
             </div>
             <div class="form-group">
                 <label for="cantidad_disponible">Cantidad Disponible:</label>
-                <input type="number" id="cantidad_disponible" required>
+                <input type="number" id="cantidad_disponible" required placeholder="Ingresa la cantidad disponible.">
             </div>
             <button type="submit" class="submit-btn">Crear Producto</button>
         </form>
