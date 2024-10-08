@@ -105,3 +105,9 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
+
+document.getElementById('gestionar-carrito-btn').addEventListener('click', () => {
+    ocultarSecciones(); // Esta función debería ocultar otras secciones
+    document.getElementById('gestionar-carrito').style.display = 'block';
+});
