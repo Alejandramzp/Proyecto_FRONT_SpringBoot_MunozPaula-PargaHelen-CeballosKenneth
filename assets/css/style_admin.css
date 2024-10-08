@@ -348,57 +348,64 @@ body {
 	font-weight: 500;
 }
 
+/**/
+
+.box-info {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.box-info li {
+    background-color: var(--light);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    width: 780px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.box-info li:hover {
+    transform: translateY(-10px);
+}
+
+.box-info li i {
+    font-size: 50px;
+    color: var(--blue);
+    margin-bottom: 10px;
+}
+
+.box-info .text h3 {
+    font-size: 24px;
+    color: var(--dark);
+    margin: 10px 0;
+}
+
+.box-info .text p {
+    font-size: 14px;
+    color: var(--dark-grey);
+}
+
+/* Estilos adicionales para la bienvenida */
+.admin-welcome {
+    font-family: var(--poppins);
+    text-align: center;
+    color: var(--dark);
+    margin-bottom: 40px;
+}
+
+.user-welcome {
+    font-size: 22px;
+    color: var(--dark);
+}
 
 
 
-#content main .box-info {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-	grid-gap: 24px;
-	margin-top: 36px;
-}
-#content main .box-info li {
-	padding: 24px;
-	background: var(--light);
-	border-radius: 20px;
-	display: flex;
-	align-items: center;
-	grid-gap: 24px;
-}
-#content main .box-info li .bx {
-	width: 80px;
-	height: 80px;
-	border-radius: 10px;
-	font-size: 36px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-#content main .box-info li:nth-child(1) .bx {
-	background: var(--light-blue);
-	color: var(--blue);
-}
-#content main .box-info li:nth-child(2) .bx {
-	background: var(--light-yellow);
-	color: var(--yellow);
-}
-#content main .box-info li:nth-child(3) .bx {
-	background: var(--light-orange);
-	color: var(--orange);
-}
-#content main .box-info li .text h3 {
-	font-size: 24px;
-	font-weight: 600;
-	color: var(--dark);
-}
-#content main .box-info li .text p {
-	color: var(--dark);	
-}
 
 
-
-
-
+/**/
 #content main .table-data {
 	display: flex;
 	flex-wrap: wrap;
@@ -560,9 +567,7 @@ body {
 		display: none;
 	}
 
-	#content main .box-info {
-		grid-template-columns: 1fr;
-	}
+
 
 	#content main .table-data .head {
 		min-width: 420px;
