@@ -926,3 +926,43 @@ Aqui va el css de producto
 .submit-btn:hover {
     background: var(--dark);
 }
+
+/**/
+
+/* Contenedor de inventario */
+.inventario-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Flexibilidad en el número de columnas */
+    gap: 24px;
+    margin-top: 24px;
+}
+
+/* Estilos para cada elemento de inventario */
+.inventario-item {
+    background-color: var(--light);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Efecto hover para los elementos de inventario */
+.inventario-item:hover {
+    transform: translateY(-5px);
+}
+
+/* Estilos para la información dentro del elemento de inventario */
+.inventario-item h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 10px;
+}
+
+.inventario-item p {
+    font-size: 14px;
+    color: var(--dark-grey);
+    margin-bottom: 8px;
+}
