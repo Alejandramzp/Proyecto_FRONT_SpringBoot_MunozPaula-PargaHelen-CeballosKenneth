@@ -1,9 +1,11 @@
 document.addEventListener("DOMContentLoaded", function() {
     const baseURL = "http://172.16.101.161:8080/ColorPop/api/productos";
+    let todosLosProductos = []; // Variable para almacenar todos los productos
 
     // Elementos del DOM
     const verInventarioBtn = document.getElementById('ver-inventario-btn');
     const verInventarioSection = document.getElementById('ver-inventario');
+    const inputBusqueda = document.getElementById('busqueda-inventario');
 
     // Mostrar/ocultar secciones
     verInventarioBtn.addEventListener("click", () => {
@@ -16,30 +18,49 @@ document.addEventListener("DOMContentLoaded", function() {
         fetch(baseURL)
             .then(response => response.json())
             .then(productos => {
+                todosLosProductos = productos; // Guardamos todos los productos
                 mostrarInventario(productos);
             })
             .catch(error => console.error('Error al obtener productos:', error));
     }
 
-    // Función para mostrar el inventario
+    // Función para mostrar el inventario (con divs)
     function mostrarInventario(productos) {
-        // Inicializamos el contenedor de inventario
-        let contenido = '<div class="inventario-container">';
+        const inventarioContainer = document.createElement('div');
+        inventarioContainer.classList.add('inventario-container');
         
-        // Iteramos sobre los productos y generamos una lista con el nombre y la cantidad
+        // Limpiamos el contenido previo de la sección de inventario
+        verInventarioSection.querySelector('.inventario-container')?.remove();
+
+        // Iteramos sobre los productos y generamos divs con el estilo anterior
         productos.forEach(producto => {
-            contenido += `
-                <div class="inventario-item">
-                    <h3>${producto.nombre}</h3>
-                    <p><strong>Cantidad disponible:</strong><br> ${producto.cantidad_disponible}</p>
-                </div>
+            const item = document.createElement('div');
+            item.classList.add('inventario-item');
+            item.innerHTML = `
+                <h3>${producto.nombre}</h3>
+                <p><strong>Cantidad disponible:</strong><br> ${producto.cantidad_disponible}</p>
             `;
+            inventarioContainer.appendChild(item);
         });
 
-        // Cerramos el contenedor
-        contenido += '</div>';
+        // Insertamos el inventario generado en la sección correspondiente
+        verInventarioSection.appendChild(inventarioContainer);
+    }
+
+    // Función para realizar la búsqueda
+    function realizarBusqueda(event) {
+        const terminoBusqueda = event.target.value.toLowerCase();
         
-        // Insertamos el contenido generado en la sección correspondiente
-        verInventarioSection.innerHTML = contenido;
+        const productosFiltrados = todosLosProductos.filter(producto => 
+            producto.nombre.toLowerCase().includes(terminoBusqueda) ||
+            producto.descripcion.toLowerCase().includes(terminoBusqueda)
+        );
+
+        mostrarInventario(productosFiltrados); // Mostramos los productos filtrados
+    }
+
+    // Configuramos la búsqueda solo una vez
+    if (inputBusqueda) {
+        inputBusqueda.addEventListener('input', realizarBusqueda);
     }
 });

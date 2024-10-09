@@ -1354,3 +1354,51 @@ h1 {
 body.dark h1 {
     color: var(--dark); /* Color para el modo oscuro */
 }
+
+/**/
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 0 15px;
+}
+
+#busqueda-inventario {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid var(--grey);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+    background-color: var(--light);
+    color: var(--dark);
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+#busqueda-inventario:focus {
+    outline: none;
+    border: 1px solid var(--blue);
+    box-shadow: 0 0 5px var(--blue);
+}
+
+/* Adaptación para dispositivos móviles */
+@media (max-width: 768px) {
+    .search-container {
+        padding: 0 10px;
+    }
+
+    #busqueda-inventario {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    #busqueda-inventario {
+        font-size: 13px;
+        padding: 8px;
+    }
+}
