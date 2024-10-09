@@ -219,6 +219,8 @@ function finalizarCompra() {
 
 // Procesar la compra
 function procesarCompra() {
+    const totalCompra = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
+    
     const actualizaciones = carrito.map(item => {
         const producto = productos.find(p => p.id === item.id);
         const nuevaCantidadDisponible = producto.cantidad_disponible - item.cantidad;
@@ -226,6 +228,51 @@ function procesarCompra() {
     });
 
     Promise.all(actualizaciones)
+        .then(() => {
+            // Crear el objeto venta para enviarlo a la API
+            const venta = {
+                numero_venta: generarNumeroVenta(), // función que genere un número de venta único
+                fecha: new Date().toISOString(), // Fecha actual en formato ISO
+                total: totalCompra.toFixed(2) // Total de la venta
+            };
+
+            // Enviar la venta a la API
+            return fetch('http://172.16.101.161:8080/ColorPop/api/ventas', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify(venta)
+            });
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al guardar la venta');
+            }
+            return response.json();
+        })
+        .then(ventaGuardada => {
+            // Guardar los detalles de la venta
+            const detalles = carrito.map(item => ({
+                id_venta: ventaGuardada, // Relacionar con la venta guardada
+                id_producto: item, // Producto comprado
+                cantidad: item.cantidad,
+                precio_unidad: item.precio
+            }));
+
+            // Enviar los detalles de la venta a la API
+            return Promise.all(detalles.map(detalle =>
+                fetch('http://172.16.101.161:8080/ColorPop/api/detalles_ventas', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify(detalle)
+                })
+            ));
+        })
         .then(() => {
             Swal.fire({
                 icon: 'success',
@@ -235,13 +282,21 @@ function procesarCompra() {
             carrito = [];
             actualizarCarrito();
             cargarProductos();
+            cargarTotalVentasMes(); // Volvemos a cargar el total de ventas del mes            
         })
         .catch(error => {
-            console.error('Error al actualizar el stock:', error);
+            console.error('Error al finalizar la compra:', error);
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
                 text: 'Hubo un problema al finalizar la compra. Intenta nuevamente.',
             });
         });
+}
+
+
+function generarNumeroVenta() {
+    // Puedes generar un número de venta único, por ejemplo, usando la fecha o un contador
+    const numero = Math.floor(Math.random() * 10000) + 1;
+    return `V${numero.toString().padStart(3, '0')}`;
 }

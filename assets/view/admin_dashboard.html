@@ -87,7 +87,7 @@
         <li>
             <a href="#" class="logout" id="logout">
                 <i class='bx bxs-log-out-circle'></i>
-                <span class="text">Logout</span>
+                <span class="text">Cerrar Sesión</span>
             </a>
         </li>              
     </ul>
@@ -135,10 +135,10 @@
             <li>
                 <i class='bx bxs-dollar-circle'></i>
                 <span class="text">
-                    <h3>$0</h3>
+                    <h3 id="total-ventas-mes">$0</h3> <!-- Aquí actualizaremos el total -->
                     <p>Total de Ventas del Mes.</p>
                 </span>
-            </li>
+            </li>            
         </ul>
     
         <div class="table-data">
@@ -218,19 +218,13 @@
 
     <!-- Sección Ver Ventas -->
     <section id="ver-ventas" class="content-section" style="display: none;">
-        <h1>Graficas de Ventas del año</h1>
-        <img src="/assets/img/genshin-impact-amber.gif" alt="">
-        <h2>En mantenimiento, mientras disfurta de Amber Plush bailando</h2>
-
-        <!-- Contenido de facturas -->
+        <!-- Aquí se mostrará el contenido de las ventas -->
     </section>
+    
 
-    <!-- Sección Ver Facturas -->
+    <!-- Sección Ver detalle de cada venta -->
     <section id="ver-facturas" class="content-section" style="display: none;">
-        <h1>Consulta la Factura por ID</h1>
-        <img src="/assets/img/genshin-impact-amber.gif" alt="">
-        <h2>En mantenimiento, mientras disfurta de Amber Plush bailando</h2>
-        <!-- Contenido de facturas -->
+        <!-- Contenido del detalle de cada venta -->
     </section>
 
 <!-- Sección Gestionar Carrito -->
@@ -289,5 +283,7 @@
     <script src="/assets/js/activos.js"></script>
     <script src="/assets/js/ventas.js"></script>
     <script src="/assets/js/frases.js"></script>
+    <script src="/assets/js/detalle_venta.js"></script>
+    <script src="/assets/js/total_ventas.js"></script>
 </body>
 </html>
