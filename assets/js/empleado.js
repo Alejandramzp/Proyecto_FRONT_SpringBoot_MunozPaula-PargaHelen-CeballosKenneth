@@ -6,10 +6,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const verEmpleadosBtn = document.getElementById('ver-empleados-btn');
     const verEmpleadosSection = document.getElementById('ver-empleados');
     const crearEmpleadosSection = document.getElementById('crear-empleados');
-    const searchInput = document.getElementById('searchInput');
-    const searchType = document.getElementById('searchType');
-    
-    let empleadosOriginales = []; // Para guardar la lista completa de empleados
 
     // Mostrar/ocultar secciones
     crearEmpleadosBtn.addEventListener("click", () => {
@@ -83,38 +79,11 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-// Eventos de búsqueda
-searchInput.addEventListener('input', function() {
-    const searchTerm = this.value.toLowerCase();
-    const searchBy = searchType.value;
-    
-    if (searchTerm === '') {
-        mostrarEmpleados(empleadosOriginales);
-        return;
-    }
-    
-    const empleadosFiltrados = empleadosOriginales.filter(empleado => {
-        if (searchBy === 'nombre') {
-            return empleado.nombres.toLowerCase().includes(searchTerm) || empleado.apellidos.toLowerCase().includes(searchTerm);
-        } else {
-            return empleado.identificacion.toLowerCase().includes(searchTerm);
-        }
-    });
-    
-    mostrarEmpleados(empleadosFiltrados);
-});
-
-searchType.addEventListener('change', function() {
-    searchInput.value = '';
-    mostrarEmpleados(empleadosOriginales);
-});
-
     // Función para obtener empleados
     function obtenerEmpleados() {
         fetch(baseURL)
             .then(response => response.json())
             .then(empleados => {
-                empleadosOriginales = empleados; // Guardar la lista original de empleados
                 mostrarEmpleados(empleados);
             })
             .catch(error => console.error('Error al obtener empleados:', error));
@@ -122,7 +91,6 @@ searchType.addEventListener('change', function() {
 
     // Función para mostrar empleados
     function mostrarEmpleados(empleados) {
-        const empleadosGrid = document.getElementById('empleados-grid');
         let contenido = '<div class="empleados-container">';
         
         empleados.forEach(empleado => {
@@ -134,16 +102,16 @@ searchType.addEventListener('change', function() {
                     <p><strong>Teléfono:</strong> ${empleado.telefono}</p>
                     <p><strong>Rol:</strong> ${empleado.rol}</p>
                     <p><strong>Estado:</strong> ${empleado.estado}</p>
-                    <div class="empleado-actions">
+                    <div class="card-actions">
                         <button onclick="editarEmpleado(${empleado.id})">Editar</button>
                         <button onclick="eliminarEmpleado(${empleado.id})">Despedir</button>
                     </div>
                 </div>
             `;
         });
-
+        
         contenido += '</div>';
-        empleadosGrid.innerHTML = contenido;
+        verEmpleadosSection.innerHTML = contenido;
     }
 
     // Función para crear un empleado
