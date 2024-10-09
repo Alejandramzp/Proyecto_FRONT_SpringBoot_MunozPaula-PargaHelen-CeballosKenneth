@@ -1344,3 +1344,13 @@ body.dark .text p {
         font-size: 14px; /* Disminuir el tamaño de la fuente */
     }
 }
+
+/**/
+
+h1 {
+    color: var(--dark); /* Color para el modo claro */
+}
+
+body.dark h1 {
+    color: var(--dark); /* Color para el modo oscuro */
+}
