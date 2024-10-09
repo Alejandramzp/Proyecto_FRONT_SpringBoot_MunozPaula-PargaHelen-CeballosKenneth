@@ -1312,3 +1312,35 @@ body.dark .text p {
 #empleados-grid {
     margin-top: 20px;
 }
+
+/* Responsivo para pantallas pequeñas */
+@media (max-width: 768px) {
+    #ver-empleados {
+        padding: 10px; /* Espacio interno para mejor visualización */
+    }
+    
+    .search-container {
+        flex-direction: column; /* Cambiar a columna en pantallas pequeñas */
+        gap: 10px;
+    }
+    
+    #searchInput,
+    #searchType {
+        width: 100%; /* Asegurar que los inputs ocupen el 100% del ancho */
+    }
+
+    #empleados-grid {
+        margin-top: 15px; /* Ajustar margen superior */
+    }
+}
+
+/* Responsivo para pantallas muy pequeñas (móviles) */
+@media (max-width: 480px) {
+    #searchInput {
+        font-size: 14px; /* Disminuir el tamaño de la fuente */
+    }
+
+    #searchType {
+        font-size: 14px; /* Disminuir el tamaño de la fuente */
+    }
+}
