@@ -278,14 +278,19 @@
 
 <!-- Sección Gestionar Carrito -->
 <section id="gestionar-carrito" class="content-section" style="display: none;">
-    <div id="contenedor-carrito-productos">
+    <div id="carrito-contenedor">
+        <!-- Columna de Productos -->
         <section id="productos">
             <h2>Productos Disponibles</h2>
+            <!-- Implementar Barra de Busqueda -->
+            <input type="text" id="busqueda" placeholder="Buscar por código o nombre" oninput="filtrarProductos()">
+                 <div id="lista-productos">
             <div id="lista-productos">
                 <!-- Los productos se cargarán aquí dinámicamente -->
             </div>
         </section>
 
+        <!-- Columna del Carrito -->
         <section id="carrito">
             <h2>Tu Carrito</h2>
             <table id="tabla-carrito">
@@ -312,6 +317,7 @@
         </section>
     </div>
 </section>
+
 
 
 </main>

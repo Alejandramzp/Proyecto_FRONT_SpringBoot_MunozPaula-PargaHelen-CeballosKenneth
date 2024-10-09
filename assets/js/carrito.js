@@ -69,8 +69,10 @@ function actualizarCarrito() {
     carrito.forEach(item => {
         const totalProducto = item.precio * item.cantidad;
         subtotal += totalProducto;
-
+    
         const fila = document.createElement('tr');
+        fila.style.backgroundColor = "var(--light)";
+        fila.style.color = "var(--dark)";
         fila.innerHTML = `
             <td>${item.nombre}</td>
             <td>${item.cantidad}</td>
@@ -82,9 +84,9 @@ function actualizarCarrito() {
             </td>
         `;
         tbody.appendChild(fila);
-    });
+    });    
 
-    const iva = subtotal * 0.16;
+    const iva = subtotal * 0.19;
     const total = subtotal + iva;
 
     document.getElementById('subtotal').textContent = subtotal.toFixed(2);
@@ -145,3 +147,46 @@ document.getElementById('finalizar-compra').addEventListener('click', () => {
             alert('Hubo un problema al finalizar la compra');
         });
 });
+
+
+// Filtrar productos en base al término de búsqueda
+function filtrarProductos() {
+    const terminoBusqueda = document.getElementById('busqueda').value.toLowerCase();
+    
+    const productosFiltrados = productos.filter(producto => 
+        producto.codigo_producto.toString().toLowerCase().includes(terminoBusqueda) ||
+        producto.nombre.toLowerCase().includes(terminoBusqueda)
+    );
+    
+    mostrarProductos(productosFiltrados);
+}
+
+// Modifica la función mostrarProductos para aceptar una lista de productos a mostrar
+function mostrarProductos(productosAMostrar = productos) {
+    const listaProductos = document.getElementById('lista-productos');
+    listaProductos.innerHTML = ''; // Limpiar lista antes de volver a cargar
+
+    productosAMostrar.forEach(producto => {
+        const productoDiv = document.createElement('div');
+        productoDiv.classList.add('producto');
+        productoDiv.innerHTML = `
+            <h3>${producto.nombre}</h3>
+            <p>${producto.descripcion}</p>
+            <p>Precio: $${producto.precio}</p>
+            <p>Disponibles: ${producto.cantidad_disponible}</p>
+            <button onclick="agregarAlCarrito(${producto.id})">Agregar al Carrito</button>
+        `;
+        listaProductos.appendChild(productoDiv);
+    });
+}
+
+// Modifica cargarProductos para que, al final, filtre los productos con el término actual de búsqueda
+function cargarProductos() {
+    fetch('http://172.16.101.161:8080/ColorPop/api/productos')
+        .then(response => response.json())
+        .then(data => {
+            productos = data;
+            filtrarProductos(); // Filtra con el término de búsqueda actual
+        })
+        .catch(error => console.error('Error:', error));
+}
