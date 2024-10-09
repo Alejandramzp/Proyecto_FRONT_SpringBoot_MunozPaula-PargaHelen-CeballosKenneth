@@ -24,56 +24,46 @@ document.addEventListener("DOMContentLoaded", function() {
     function mostrarFormularioCrear() {
         crearEmpleadosSection.innerHTML = `
         <form id="form-crear-empleado" class="employee-form">
-    <h2>Crear Empleado</h2>
-    
-    <div class="form-group">
-        <label for="identificacion" class="form-label">Identificación:</label>
-        <input type="text" id="identificacion" class="form-input" required placeholder="Ingresa el numero de documento.">
-    </div>
-    
-    <div class="form-group">
-        <label for="nombres" class="form-label">Nombres:</label>
-        <input type="text" id="nombres" class="form-input" required placeholder="Ingresa los nombres del nuevo empleado.">
-    </div>
-    
-    <div class="form-group">
-        <label for="apellidos" class="form-label">Apellidos:</label>
-        <input type="text" id="apellidos" class="form-input" required placeholder="Ingresa los apellidos del nuevo empleado.">
-    </div>
-    
-    <div class="form-group">
-        <label for="direccion" class="form-label">Dirección:</label>
-        <input type="text" id="direccion" class="form-input" required placeholder="Ingresa la dirección del nuevo empleado.">
-    </div>
-    
-    <div class="form-group">
-        <label for="telefono" class="form-label">Teléfono:</label>
-        <input type="text" id="telefono" class="form-input" required placeholder="Ingresa el telefono del nuevo empleado.">
-    </div>
-    
-    <div class="form-group">
-        <label for="rol" class="form-label">Rol:</label>
-        <select id="rol" class="form-select" required>
-            <option value="Cajero">Cajero</option>
-            <option value="Administrador">Administrador</option>
-            <option value="Gerente">Gerente</option>
-        </select>
-    </div>
-    
-    <div class="form-group">
-        <label for="estado" class="form-label">Estado:</label>
-        <select id="estado" class="form-select" required>
-            <option value="Activo">Activo</option>
-            <option value="Inactivo">Inactivo</option>
-        </select>
-    </div>
-    
-    <button type="submit" class="submit-btn">Crear Empleado</button>
-</form>
-
-    
+            <h2>Crear Empleado</h2>
+            <div class="form-group">
+                <label for="identificacion" class="form-label">Identificación:</label>
+                <input type="text" id="identificacion" class="form-input" required placeholder="Ingresa el numero de documento.">
+            </div>
+            <div class="form-group">
+                <label for="nombres" class="form-label">Nombres:</label>
+                <input type="text" id="nombres" class="form-input" required placeholder="Ingresa los nombres del nuevo empleado.">
+            </div>
+            <div class="form-group">
+                <label for="apellidos" class="form-label">Apellidos:</label>
+                <input type="text" id="apellidos" class="form-input" required placeholder="Ingresa los apellidos del nuevo empleado.">
+            </div>
+            <div class="form-group">
+                <label for="direccion" class="form-label">Dirección:</label>
+                <input type="text" id="direccion" class="form-input" required placeholder="Ingresa la dirección del nuevo empleado.">
+            </div>
+            <div class="form-group">
+                <label for="telefono" class="form-label">Teléfono:</label>
+                <input type="text" id="telefono" class="form-input" required placeholder="Ingresa el telefono del nuevo empleado.">
+            </div>
+            <div class="form-group">
+                <label for="rol" class="form-label">Rol:</label>
+                <select id="rol" class="form-select" required>
+                    <option value="Cajero">Cajero</option>
+                    <option value="Administrador">Administrador</option>
+                    <option value="Gerente">Gerente</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="estado" class="form-label">Estado:</label>
+                <select id="estado" class="form-select" required>
+                    <option value="Activo">Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                </select>
+            </div>
+            <button type="submit" class="submit-btn">Crear Empleado</button>
+        </form>
         `;
-
+        
         document.getElementById('form-crear-empleado').addEventListener('submit', function(event) {
             event.preventDefault();
             const nuevoEmpleado = {
@@ -120,11 +110,9 @@ document.addEventListener("DOMContentLoaded", function() {
             `;
         });
         
-    
         contenido += '</div>';
         verEmpleadosSection.innerHTML = contenido;
     }
-    
 
     // Función para crear un empleado
     function crearEmpleado(empleado) {
@@ -137,7 +125,11 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .then(response => response.json())
         .then(data => {
-            alert('Empleado creado con éxito');
+            Swal.fire(
+                'Empleado creado!',
+                'El nuevo empleado ha sido creado con éxito.',
+                'success'
+            );
             obtenerEmpleados();
         })
         .catch(error => console.error('Error al crear empleado:', error));
@@ -145,95 +137,113 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Función para eliminar un empleado
     window.eliminarEmpleado = function(id) {
-        fetch(`${baseURL}/${id}`, {
-            method: 'DELETE'
-        })
-        .then(response => {
-            if (response.ok) {
-                alert('Empleado eliminado con éxito');
-                obtenerEmpleados();
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡No podrás recuperar este empleado!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, despedirlo >:)!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`${baseURL}/${id}`, {
+                    method: 'DELETE'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        Swal.fire(
+                            'Eliminado!',
+                            'Empleado despedido con éxito.',
+                            'success'
+                        );
+                        obtenerEmpleados();
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'Error al despedir el empleado.',
+                            'error'
+                        );
+                    }
+                })
+                .catch(error => console.error('Error al eliminar empleado:', error));
             } else {
-                alert('Error al eliminar el empleado');
+                Swal.fire(
+                    'Cancelado',
+                    'Proceso de despedir cancelado.',
+                    'info'
+                );
             }
-        })
-        .catch(error => console.error('Error al eliminar empleado:', error));
+        });
     };
 
     // Función para editar un empleado
-window.editarEmpleado = function(id) {
-    fetch(`${baseURL}/${id}`)
-        .then(response => response.json())
-        .then(empleado => {
-            crearEmpleadosSection.style.display = "block";
-            verEmpleadosSection.style.display = "none";
-            
-            crearEmpleadosSection.innerHTML = `
-                <form id="form-editar-empleado" class="employee-form">
-                    <h2>Editar Empleado</h2>
-                    
-                    <div class="form-group">
-                        <label for="identificacion" class="form-label">Identificación:</label>
-                        <input type="text" id="identificacion" class="form-input" value="${empleado.identificacion}" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="nombres" class="form-label">Nombres:</label>
-                        <input type="text" id="nombres" class="form-input" value="${empleado.nombres}" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="apellidos" class="form-label">Apellidos:</label>
-                        <input type="text" id="apellidos" class="form-input" value="${empleado.apellidos}" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="direccion" class="form-label">Dirección:</label>
-                        <input type="text" id="direccion" class="form-input" value="${empleado.direccion}" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="telefono" class="form-label">Teléfono:</label>
-                        <input type="text" id="telefono" class="form-input" value="${empleado.telefono}" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="rol" class="form-label">Rol:</label>
-                        <select id="rol" class="form-select" required>
-                            <option value="Cajero" ${empleado.rol === 'Cajero' ? 'selected' : ''}>Cajero</option>
-                            <option value="Administrador" ${empleado.rol === 'Administrador' ? 'selected' : ''}>Administrador</option>
-                            <option value="Gerente" ${empleado.rol === 'Gerente' ? 'selected' : ''}>Gerente</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="estado" class="form-label">Estado:</label>
-                        <select id="estado" class="form-select" required>
-                            <option value="Activo" ${empleado.estado === 'Activo' ? 'selected' : ''}>Activo</option>
-                            <option value="Inactivo" ${empleado.estado === 'Inactivo' ? 'selected' : ''}>Inactivo</option>
-                        </select>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn">Actualizar Empleado</button>
-                </form>
-            `;
-
-            document.getElementById('form-editar-empleado').addEventListener('submit', function(event) {
-                event.preventDefault();
-                const empleadoActualizado = {
-                    identificacion: document.getElementById('identificacion').value,
-                    nombres: document.getElementById('nombres').value,
-                    apellidos: document.getElementById('apellidos').value,
-                    direccion: document.getElementById('direccion').value,
-                    telefono: document.getElementById('telefono').value,
-                    rol: document.getElementById('rol').value,
-                    estado: document.getElementById('estado').value
-                };
-                actualizarEmpleado(id, empleadoActualizado);
-            });
-        })
-        .catch(error => console.error('Error al obtener el empleado:', error));
-};
-
+    window.editarEmpleado = function(id) {
+        fetch(`${baseURL}/${id}`)
+            .then(response => response.json())
+            .then(empleado => {
+                crearEmpleadosSection.style.display = "block";
+                verEmpleadosSection.style.display = "none";
+                
+                crearEmpleadosSection.innerHTML = `
+                    <form id="form-editar-empleado" class="employee-form">
+                        <h2>Editar Empleado</h2>
+                        <div class="form-group">
+                            <label for="identificacion" class="form-label">Identificación:</label>
+                            <input type="text" id="identificacion" class="form-input" value="${empleado.identificacion}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nombres" class="form-label">Nombres:</label>
+                            <input type="text" id="nombres" class="form-input" value="${empleado.nombres}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="apellidos" class="form-label">Apellidos:</label>
+                            <input type="text" id="apellidos" class="form-input" value="${empleado.apellidos}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="direccion" class="form-label">Dirección:</label>
+                            <input type="text" id="direccion" class="form-input" value="${empleado.direccion}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono" class="form-label">Teléfono:</label>
+                            <input type="text" id="telefono" class="form-input" value="${empleado.telefono}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="rol" class="form-label">Rol:</label>
+                            <select id="rol" class="form-select" required>
+                                <option value="Cajero" ${empleado.rol === 'Cajero' ? 'selected' : ''}>Cajero</option>
+                                <option value="Administrador" ${empleado.rol === 'Administrador' ? 'selected' : ''}>Administrador</option>
+                                <option value="Gerente" ${empleado.rol === 'Gerente' ? 'selected' : ''}>Gerente</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="estado" class="form-label">Estado:</label>
+                            <select id="estado" class="form-select" required>
+                                <option value="Activo" ${empleado.estado === 'Activo' ? 'selected' : ''}>Activo</option>
+                                <option value="Inactivo" ${empleado.estado === 'Inactivo' ? 'selected' : ''}>Inactivo</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="submit-btn">Actualizar Empleado</button>
+                    </form>
+                `;
+                
+                document.getElementById('form-editar-empleado').addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    const empleadoEditado = {
+                        identificacion: document.getElementById('identificacion').value,
+                        nombres: document.getElementById('nombres').value,
+                        apellidos: document.getElementById('apellidos').value,
+                        direccion: document.getElementById('direccion').value,
+                        telefono: document.getElementById('telefono').value,
+                        rol: document.getElementById('rol').value,
+                        estado: document.getElementById('estado').value
+                    };
+                    actualizarEmpleado(id, empleadoEditado);
+                });
+            })
+            .catch(error => console.error('Error al obtener empleado:', error));
+    };
 
     // Función para actualizar un empleado
     function actualizarEmpleado(id, empleado) {
@@ -246,9 +256,13 @@ window.editarEmpleado = function(id) {
         })
         .then(response => response.json())
         .then(data => {
-            alert('Empleado actualizado con éxito');
+            Swal.fire(
+                'Empleado actualizado!',
+                'El empleado ha sido actualizado correctamente.',
+                'success'
+            );
             obtenerEmpleados();
         })
-        .catch(error => console.error('Error al actualizar el empleado:', error));
+        .catch(error => console.error('Error al actualizar empleado:', error));
     }
 });

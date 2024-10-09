@@ -106,43 +106,69 @@ function mostrarProductos(productos) {
 
 
     // Función para crear un producto
-    function crearProducto(producto) {
-        fetch(baseURL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(producto)
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert('Producto creado con éxito');
-            obtenerProductos();
-        })
-        .catch(error => console.error('Error al crear producto:', error));
-    }
+function crearProducto(producto) {
+    fetch(baseURL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(producto)
+    })
+    .then(response => response.json())
+    .then(data => {
+        Swal.fire(
+            'Éxito!',
+            'Producto creado con éxito.',
+            'success'
+        );
+        obtenerProductos();
+    })
+    .catch(error => console.error('Error al crear producto:', error));
+}
 
-    // Función para eliminar un producto
+
+// Función para eliminar un producto
 window.eliminarProducto = function(id) {
-    const confirmacion = confirm("¿Estás seguro de que deseas eliminar este producto?");
-    if (confirmacion) {
-        fetch(`${baseURL}/${id}`, {
-            method: 'DELETE'
-        })
-        .then(response => {
-            if (response.ok) {
-                alert('Producto eliminado con éxito');
-                obtenerProductos();
-            } else {
-                alert('Error al eliminar el producto');
-            }
-        })
-        .catch(error => console.error('Error al eliminar producto:', error));
-    } else {
-        alert('Eliminación cancelada.');
-    }
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡No podrás recuperar este producto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminarlo!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch(`${baseURL}/${id}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                    Swal.fire(
+                        'Eliminado!',
+                        'Producto eliminado con éxito.',
+                        'success'
+                    );
+                    obtenerProductos();
+                } else {
+                    Swal.fire(
+                        'Error!',
+                        'Error al eliminar el producto.',
+                        'error'
+                    );
+                }
+            })
+            .catch(error => console.error('Error al eliminar producto:', error));
+        } else {
+            Swal.fire(
+                'Cancelado',
+                'Eliminación cancelada.',
+                'info'
+            );
+        }
+    });
 };
-
 
     // Función para editar un producto
 window.editarProducto = function(id) {
@@ -195,19 +221,24 @@ window.editarProducto = function(id) {
 };
 
     // Función para actualizar un producto
-    function actualizarProducto(id, producto) {
-        fetch(`${baseURL}/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(producto)
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert('Producto actualizado con éxito');
-            obtenerProductos();
-        })
-        .catch(error => console.error('Error al actualizar el producto:', error));
-    }
+function actualizarProducto(id, producto) {
+    fetch(`${baseURL}/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(producto)
+    })
+    .then(response => response.json())
+    .then(data => {
+        Swal.fire(
+            'Actualizado!',
+            'Producto actualizado con éxito.',
+            'success'
+        );
+        obtenerProductos();
+    })
+    .catch(error => console.error('Error al actualizar el producto:', error));
+}
+
 });

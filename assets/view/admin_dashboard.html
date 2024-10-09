@@ -3,10 +3,15 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<link rel="stylesheet" href="/assets/css/style_admin.css">
-	<title>Admin - ColorPop</title>
-	<link rel="shortcut icon" href="/assets/img/Logo_Cp_B.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/assets/css/tables_dashboard.css">
+	
+    <link rel="shortcut icon" href="/assets/img/Logo_Cp_B.png" type="image/x-icon">
+    
+    <title>Admin - ColorPop</title>
 </head>
 <body>
 
@@ -22,7 +27,7 @@
                 <i class='bx bxs-home'></i>
                 <span class="text">Inicio</span>
             </a>
-        </li>
+        </li>        
         <li>
             <a href="#" id="crear-productos-btn">
                 <i class='bx bxs-package'></i>
@@ -140,99 +145,29 @@
                 </span>
             </li>
         </ul>
-
+    
         <div class="table-data">
             <div class="order">
                 <div class="head">
                     <h3>Empleados Activos</h3>
-                    <i class='bx bx-search' ></i>
-                    <i class='bx bx-filter' ></i>
                 </div>
-                <table>
+                <table class="active-employees-table">
                     <thead>
                         <tr>
-                            <th>User</th>
-                            <th>Date Order</th>
-                            <th>Status</th>
+                            <th>ID</th>
+                            <th>Identificación</th>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Rol</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <i class='bx bx-user-circle'></i>
-                                <p>John Doe</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status completed">Completed</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <i class='bx bx-user-circle'></i>
-                                <p>John Doe</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status pending">Pending</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <i class='bx bx-user-circle'></i>
-                                <p>John Doe</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status process">Process</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <i class='bx bx-user-circle'></i>
-                                <p>John Doe</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status pending">Pending</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <i class='bx bx-user-circle'></i>
-                                <p>John Doe</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status completed">Completed</span></td>
-                        </tr>
+                    <tbody id="active-employees">
+                        <!-- Aquí se insertarán los empleados activos -->
                     </tbody>
                 </table>
             </div>
-            <div class="todo">
-                <div class="head">
-                    <h3>Todos</h3>
-                    <i class='bx bx-plus' ></i>
-                    <i class='bx bx-filter' ></i>
-                </div>
-                <ul class="todo-list">
-                    <li class="completed">
-                        <p>Todo List</p>
-                        <i class='bx bx-dots-vertical-rounded' ></i>
-                    </li>
-                    <li class="completed">
-                        <p>Todo List</p>
-                        <i class='bx bx-dots-vertical-rounded' ></i>
-                    </li>
-                    <li class="not-completed">
-                        <p>Todo List</p>
-                        <i class='bx bx-dots-vertical-rounded' ></i>
-                    </li>
-                    <li class="completed">
-                        <p>Todo List</p>
-                        <i class='bx bx-dots-vertical-rounded' ></i>
-                    </li>
-                    <li class="not-completed">
-                        <p>Todo List</p>
-                        <i class='bx bx-dots-vertical-rounded' ></i>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-    </section>
-    
+        </div>        
+    </section>    
 
     <!-- Sección Crear Productos -->
     <section id="crear-productos" class="content-section" style="display: none;">
@@ -325,10 +260,12 @@
 
 </section>
 <!-- CONTENT -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="/assets/js/script_admin_Dashboard.js"></script>
 	<script src="/assets/js/empleado.js"></script>
 	<script src="/assets/js/producto.js"></script>
     <script src="/assets/js/inventario.js"></script>
     <script src="/assets/js/carrito.js"></script>
+    <script src="/assets/js/activos.js"></script>
 </body>
 </html>

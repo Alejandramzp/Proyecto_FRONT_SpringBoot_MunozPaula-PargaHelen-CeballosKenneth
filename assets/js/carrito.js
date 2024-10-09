@@ -125,7 +125,11 @@ function actualizarStockProducto(idProducto, nuevaCantidad) {
 // Finalizar compra
 document.getElementById('finalizar-compra').addEventListener('click', () => {
     if (carrito.length === 0) {
-        alert('El carrito está vacío');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Carrito vacío',
+            text: 'El carrito está vacío',
+        });
         return;
     }
 
@@ -137,16 +141,25 @@ document.getElementById('finalizar-compra').addEventListener('click', () => {
 
     Promise.all(actualizaciones)
         .then(() => {
-            alert('Compra finalizada exitosamente');
+            Swal.fire({
+                icon: 'success',
+                title: 'Compra finalizada',
+                text: 'Compra finalizada exitosamente',
+            });
             carrito = [];
             actualizarCarrito();
             cargarProductos();
         })
         .catch(error => {
             console.error('Error al actualizar el stock:', error);
-            alert('Hubo un problema al finalizar la compra');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Hubo un problema al finalizar la compra',
+            });
         });
 });
+
 
 
 // Filtrar productos en base al término de búsqueda
