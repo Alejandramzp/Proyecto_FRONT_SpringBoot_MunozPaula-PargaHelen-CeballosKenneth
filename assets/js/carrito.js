@@ -15,27 +15,42 @@ document.addEventListener('DOMContentLoaded', function() {
         finalizarCompraBtn.addEventListener('click', finalizarCompra);
     }
 
-    cargarProductos();
+    cargarProductos(); // Cargar productos desde la API
 });
 
 // Cargar productos desde la API
 function cargarProductos() {
-    fetch('http://172.16.101.161:8080/ColorPop/api/productos')
-        .then(response => response.json())
-        .then(data => {
-            productos = data;
-            productosFiltrados = [...productos];
-            mostrarProductos();
-        })
-        .catch(error => {
-            console.error('Error al cargar productos:', error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'No se pudieron cargar los productos. Por favor, intente más tarde.',
-            });
+    console.log('Cargando productos...');
+    
+    fetch('http://172.16.101.161:8080/ColorPop/api/productos', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}` // Autenticación con token
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Error al cargar productos. Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        productos = data;
+        productosFiltrados = [...productos];
+        mostrarProductos(); // Mostrar los productos en la interfaz
+        console.log('Productos cargados:', productos); // Depuración
+    })
+    .catch(error => {
+        console.error('Error al cargar productos:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudieron cargar los productos. Por favor, intente más tarde.',
         });
+    });
 }
+
 
 // Función para buscar productos
 function buscarProductos(event) {
@@ -166,16 +181,17 @@ function eliminarDelCarrito(idProducto) {
     actualizarCarrito();
 }
 
-// Actualizar el stock en el backend
 function actualizarStockProducto(idProducto, nuevaCantidad) {
     return fetch(`http://172.16.101.161:8080/ColorPop/api/productos/${idProducto}/cantidad`, {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}` // Incluye el token de autenticación
         },
         body: JSON.stringify({ cantidad_disponible: nuevaCantidad })
     });
 }
+
 
 // Finalizar compra
 function finalizarCompra() {

@@ -14,15 +14,37 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // Función para obtener inventario
-    function obtenerInventario() {
-        fetch(baseURL)
-            .then(response => response.json())
-            .then(productos => {
-                todosLosProductos = productos; // Guardamos todos los productos
-                mostrarInventario(productos);
-            })
-            .catch(error => console.error('Error al obtener productos:', error));
-    }
+function obtenerInventario() {
+    console.log('Obteniendo el inventario de productos...');
+    
+    fetch(baseURL, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Error al obtener productos. Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(productos => {
+        todosLosProductos = productos; // Guardamos todos los productos
+        console.log('Productos obtenidos:', productos);
+        mostrarInventario(productos);   // Mostrar los productos en el DOM
+    })
+    .catch(error => {
+        console.error('Error al obtener productos:', error);
+        Swal.fire(
+            'Error!',
+            'Hubo un problema al obtener el inventario de productos.',
+            'error'
+        );
+    });
+}
+
 
     // Función para mostrar el inventario (con divs)
     function mostrarInventario(productos) {

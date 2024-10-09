@@ -141,6 +141,7 @@ function mostrarProductos(productos) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify(producto)
         })
@@ -157,116 +158,169 @@ function mostrarProductos(productos) {
     }
 
     // Función para eliminar un producto
-    window.eliminarProducto = function(id) {
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "¡No podrás recuperar este producto!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Sí, eliminarlo!',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                fetch(`${baseURL}/${id}`, {
-                    method: 'DELETE'
-                })
-                .then(response => {
-                    if (response.ok) {
-                        Swal.fire(
-                            'Eliminado!',
-                            'Producto eliminado con éxito.',
-                            'success'
-                        );
-                        obtenerProductos();
-                    } else {
-                        Swal.fire(
-                            'Error!',
-                            'Error al eliminar el producto.',
-                            'error'
-                        );
-                    }
-                })
-                .catch(error => console.error('Error al eliminar producto:', error));
-            } else {
+window.eliminarProducto = function(id) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡No podrás recuperar este producto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminarlo!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            console.log(`Intentando eliminar el producto con ID: ${id}`);
+            
+            fetch(`${baseURL}/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    Swal.fire(
+                        'Eliminado!',
+                        'Producto eliminado con éxito.',
+                        'success'
+                    );
+                    obtenerProductos();  // Refrescar la lista de productos
+                } else {
+                    console.error(`Error al eliminar producto. Status: ${response.status}`);
+                    Swal.fire(
+                        'Error!',
+                        'Error al eliminar el producto.',
+                        'error'
+                    );
+                }
+            })
+            .catch(error => {
+                console.error('Error al eliminar producto:', error);
                 Swal.fire(
-                    'Cancelado',
-                    'Eliminación cancelada.',
-                    'info'
+                    'Error!',
+                    'Hubo un problema al intentar eliminar el producto.',
+                    'error'
                 );
-            }
-        });
-    };
+            });
+        } else {
+            console.log('Proceso de eliminación cancelado por el usuario.');
+            Swal.fire(
+                'Cancelado',
+                'Eliminación cancelada.',
+                'info'
+            );
+        }
+    });
+};
+
 
     // Función para editar un producto
-    window.editarProducto = function(id) {
-        fetch(`${baseURL}/${id}`)
-            .then(response => response.json())
-            .then(producto => {
-                crearProductosSection.style.display = "block";
-                verProductosSection.style.display = "none";
-                
-                crearProductosSection.innerHTML = `
-                    <form id="form-editar-producto" class="product-form">
-                        <h2>Editar Producto</h2>
-                        <div class="form-group">
-                            <label for="codigo_producto">Código Producto:</label>
-                            <input type="text" id="codigo_producto" value="${producto.codigo_producto}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="nombre">Nombre:</label>
-                            <input type="text" id="nombre" value="${producto.nombre}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="descripcion">Descripción:</label>
-                            <input type="text" id="descripcion" value="${producto.descripcion}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="precio">Precio:</label>
-                            <input type="number" id="precio" value="${producto.precio}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="cantidad_disponible">Cantidad Disponible:</label>
-                            <input type="number" id="cantidad_disponible" value="${producto.cantidad_disponible}" required>
-                        </div>
-                        <button type="submit" class="submit-btn">Actualizar Producto</button>
-                    </form>
-                `;
+window.editarProducto = function(id) {
+    console.log(`Intentando obtener datos del producto con ID: ${id}`);
+    
+    fetch(`${baseURL}/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Error al obtener el producto. Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(producto => {
+        crearProductosSection.style.display = "block";
+        verProductosSection.style.display = "none";
 
-                document.getElementById('form-editar-producto').addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    const productoActualizado = {
-                        codigo_producto: document.getElementById('codigo_producto').value,
-                        nombre: document.getElementById('nombre').value,
-                        descripcion: document.getElementById('descripcion').value,
-                        precio: parseFloat(document.getElementById('precio').value),
-                        cantidad_disponible: parseInt(document.getElementById('cantidad_disponible').value)
-                    };
-                    actualizarProducto(id, productoActualizado);
-                });
-            })
-            .catch(error => console.error('Error al obtener el producto:', error));
-    };
+        crearProductosSection.innerHTML = `
+            <form id="form-editar-producto" class="product-form">
+                <h2>Editar Producto</h2>
+                <div class="form-group">
+                    <label for="codigo_producto">Código Producto:</label>
+                    <input type="text" id="codigo_producto" value="${producto.codigo_producto}" required>
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" value="${producto.nombre}" required>
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Descripción:</label>
+                    <input type="text" id="descripcion" value="${producto.descripcion}" required>
+                </div>
+                <div class="form-group">
+                    <label for="precio">Precio:</label>
+                    <input type="number" id="precio" value="${producto.precio}" required>
+                </div>
+                <div class="form-group">
+                    <label for="cantidad_disponible">Cantidad Disponible:</label>
+                    <input type="number" id="cantidad_disponible" value="${producto.cantidad_disponible}" required>
+                </div>
+                <button type="submit" class="submit-btn">Actualizar Producto</button>
+            </form>
+        `;
+
+        document.getElementById('form-editar-producto').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const productoActualizado = {
+                codigo_producto: document.getElementById('codigo_producto').value,
+                nombre: document.getElementById('nombre').value,
+                descripcion: document.getElementById('descripcion').value,
+                precio: parseFloat(document.getElementById('precio').value),
+                cantidad_disponible: parseInt(document.getElementById('cantidad_disponible').value)
+            };
+            actualizarProducto(id, productoActualizado);
+        });
+    })
+    .catch(error => {
+        console.error('Error al obtener el producto:', error);
+        Swal.fire(
+            'Error!',
+            'Hubo un problema al cargar el producto.',
+            'error'
+        );
+    });
+};
+
 
     // Función para actualizar un producto
-    function actualizarProducto(id, producto) {
-        fetch(`${baseURL}/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(producto)
-        })
-        .then(response => response.json())
-        .then(data => {
-            Swal.fire(
-                'Actualizado!',
-                'Producto actualizado con éxito.',
-                'success'
-            );
-            obtenerProductos();
-        })
-        .catch(error => console.error('Error al actualizar el producto:', error));
-    }
+function actualizarProducto(id, producto) {
+    console.log(`Actualizando el producto con ID: ${id}`);
+    
+    fetch(`${baseURL}/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(producto)
+    })
+    .then(response => {
+        if (response.status === 403) {
+            throw new Error('Permisos insuficientes para actualizar el producto. Verifique los roles de usuario.');
+        }
+        if (!response.ok) {
+            throw new Error(`Error al actualizar el producto. Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        Swal.fire(
+            'Actualizado!',
+            'Producto actualizado con éxito.',
+            'success'
+        );
+        obtenerProductos();
+    })
+    .catch(error => {
+        console.error('Error al actualizar el producto:', error);
+        Swal.fire(
+            'Error!',
+            error.message,
+            'error'
+        );
+    });
+}
+
 });

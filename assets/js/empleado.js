@@ -81,7 +81,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Función para obtener empleados
     function obtenerEmpleados() {
-        console.log('Intentando obtener empleados...');
         fetch(baseURL, {
             method: 'GET',
             headers: {
@@ -150,47 +149,62 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Función para eliminar un empleado
-    window.eliminarEmpleado = function(id) {
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "¡No podrás recuperar este empleado!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Sí, despedirlo >:)!',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                fetch(`${baseURL}/${id}`, {
-                    method: 'DELETE'
-                })
-                .then(response => {
-                    if (response.ok) {
-                        Swal.fire(
-                            'Eliminado!',
-                            'Empleado despedido con éxito.',
-                            'success'
-                        );
-                        obtenerEmpleados();
-                    } else {
-                        Swal.fire(
-                            'Error!',
-                            'Error al despedir el empleado.',
-                            'error'
-                        );
-                    }
-                })
-                .catch(error => console.error('Error al eliminar empleado:', error));
-            } else {
+window.eliminarEmpleado = function(id) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡No podrás recuperar este empleado!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, despedirlo >:)!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            console.log(`Intentando eliminar al empleado con ID: ${id}`);
+            
+            fetch(`${baseURL}/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    Swal.fire(
+                        'Eliminado!',
+                        'Empleado despedido con éxito.',
+                        'success'
+                    );
+                    obtenerEmpleados();  // Refrescar la lista de empleados
+                } else {
+                    console.error(`Error al eliminar empleado. Status: ${response.status}`);
+                    Swal.fire(
+                        'Error!',
+                        'Error al despedir el empleado.',
+                        'error'
+                    );
+                }
+            })
+            .catch(error => {
+                console.error('Error al eliminar empleado:', error);
                 Swal.fire(
-                    'Cancelado',
-                    'Proceso de despedir cancelado.',
-                    'info'
+                    'Error!',
+                    'Hubo un problema al intentar despedir al empleado.',
+                    'error'
                 );
-            }
-        });
-    };
+            });
+        } else {
+            console.log('Proceso de eliminación cancelado por el usuario.');
+            Swal.fire(
+                'Cancelado',
+                'Proceso de despedir cancelado.',
+                'info'
+            );
+        }
+    });
+};
+
 
     // Función para editar un empleado
 window.editarEmpleado = function(id) {
