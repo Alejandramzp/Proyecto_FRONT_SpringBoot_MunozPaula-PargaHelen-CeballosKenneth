@@ -123,7 +123,9 @@ function mostrarProductos(productos) {
     }
 
     // Función para eliminar un producto
-    window.eliminarProducto = function(id) {
+window.eliminarProducto = function(id) {
+    const confirmacion = confirm("¿Estás seguro de que deseas eliminar este producto?");
+    if (confirmacion) {
         fetch(`${baseURL}/${id}`, {
             method: 'DELETE'
         })
@@ -136,7 +138,11 @@ function mostrarProductos(productos) {
             }
         })
         .catch(error => console.error('Error al eliminar producto:', error));
-    };
+    } else {
+        alert('Eliminación cancelada.');
+    }
+};
+
 
     // Función para editar un producto
 window.editarProducto = function(id) {
