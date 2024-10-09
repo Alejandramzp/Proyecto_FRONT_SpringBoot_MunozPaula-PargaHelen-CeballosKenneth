@@ -282,7 +282,8 @@ function procesarCompra() {
             carrito = [];
             actualizarCarrito();
             cargarProductos();
-            cargarTotalVentasMes(); // Volvemos a cargar el total de ventas del mes            
+            cargarTotalVentasMes(); // Volvemos a cargar el total de ventas del mes   
+            cargarTotalVentasDia(); // Volvemos a cargar el total de ventas del día         
         })
         .catch(error => {
             console.error('Error al finalizar la compra:', error);

@@ -12,7 +12,11 @@ document.getElementById('loginForm').addEventListener('submit', async function (
 
     // Comprobar si los campos están vacíos
     if (!username || !password) {
-        alert('Por favor, ingresa correo y contraseña.');
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Por favor, ingresa correo y contraseña.'
+        });
         return;
     }
 
@@ -54,14 +58,26 @@ document.getElementById('loginForm').addEventListener('submit', async function (
                     role = 'Usuario';
             }
             localStorage.setItem('rol', role);
-            alert("Inicio de sesión exitoso");
+            Swal.fire({
+                icon: 'success',
+                title: 'Éxito',
+                text: 'Inicio de sesión exitoso'
+            });
             comprobarRol();
         } else {
-            alert('No se recibió token del servidor.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'No se recibió token del servidor.'
+            });
         }
     } catch (error) {
         console.error('Error en la autenticación:', error);
-        alert(`Error en la autenticación: ${error.message}`);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: `Error en la autenticación: ${error.message}`
+        });
     }
 });
 
