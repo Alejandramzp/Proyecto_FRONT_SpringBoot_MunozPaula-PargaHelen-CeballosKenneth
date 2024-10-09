@@ -46,6 +46,7 @@ function mostrarVentas(ventas) {
     }
 
     const tablaVentas = document.createElement('table');
+    tablaVentas.classList.add('active-employees-table'); // Añadimos la clase de estilo de la tabla
     tablaVentas.innerHTML = `
         <thead>
             <tr>

@@ -107,3 +107,42 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
+// Asegúrate de que este script se ejecute después de que el DOM esté completamente cargado
+document.addEventListener('DOMContentLoaded', function() {
+    const logoutButton = document.querySelector('.logout');
+    
+    if (logoutButton) {
+        logoutButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            
+            // Usar SweetAlert2 para una mejor experiencia de usuario
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¿Deseas cerrar la sesión?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, cerrar sesión',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Limpiar todo el localStorage
+                    localStorage.clear();
+                    
+                    // Mostrar mensaje de éxito
+                    Swal.fire(
+                        '¡Sesión cerrada!',
+                        'Has cerrado sesión correctamente.',
+                        'success'
+                    ).then(() => {
+                        // Redirigir al index
+                        window.location.href = 'http://127.0.0.1:5500/index.html';
+                    });
+                }
+            });
+        });
+    } else {
+        console.error('El botón de logout no fue encontrado');
+    }
+});

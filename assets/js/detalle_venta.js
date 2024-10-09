@@ -46,6 +46,7 @@ function mostrarDetallesVentas(detalles) {
     }
 
     const tablaFacturas = document.createElement('table');
+    tablaFacturas.classList.add('active-employees-table'); // Añadimos la clase de estilo de la tabla
     tablaFacturas.innerHTML = `
         <thead>
             <tr>
