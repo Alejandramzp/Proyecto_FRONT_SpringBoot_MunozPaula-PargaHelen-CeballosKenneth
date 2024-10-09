@@ -1,9 +1,22 @@
-// carrito.js
-
 // Variables globales
 let carrito = [];
 let productos = [];
-let productosFiltrados = [];  // Para mantener el listado de productos filtrados
+let productosFiltrados = [];
+
+// Inicialización cuando el DOM está listo
+document.addEventListener('DOMContentLoaded', function() {
+    const inputBusqueda = document.getElementById('busqueda');
+    if (inputBusqueda) {
+        inputBusqueda.addEventListener('input', buscarProductos);
+    }
+    
+    const finalizarCompraBtn = document.getElementById('finalizar-compra');
+    if (finalizarCompraBtn) {
+        finalizarCompraBtn.addEventListener('click', finalizarCompra);
+    }
+
+    cargarProductos();
+});
 
 // Cargar productos desde la API
 function cargarProductos() {
@@ -11,16 +24,42 @@ function cargarProductos() {
         .then(response => response.json())
         .then(data => {
             productos = data;
-            productosFiltrados = [...productos]; // Inicializamos productos filtrados
+            productosFiltrados = [...productos];
             mostrarProductos();
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Error al cargar productos:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'No se pudieron cargar los productos. Por favor, intente más tarde.',
+            });
+        });
+}
+
+// Función para buscar productos
+function buscarProductos(event) {
+    const query = event.target.value.toLowerCase().trim();
+    
+    productosFiltrados = productos.filter(producto => 
+        producto.nombre.toLowerCase().includes(query) || 
+        producto.descripcion.toLowerCase().includes(query)
+    );
+    
+    mostrarProductos();
 }
 
 // Mostrar productos en la página
 function mostrarProductos() {
     const listaProductos = document.getElementById('lista-productos');
-    listaProductos.innerHTML = ''; // Limpiar lista antes de volver a cargar
+    if (!listaProductos) return;
+    
+    listaProductos.innerHTML = '';
+
+    if (productosFiltrados.length === 0) {
+        listaProductos.innerHTML = '<p>No se encontraron productos</p>';
+        return;
+    }
 
     productosFiltrados.forEach(producto => {
         const productoDiv = document.createElement('div');
@@ -35,24 +74,6 @@ function mostrarProductos() {
         listaProductos.appendChild(productoDiv);
     });
 }
-
-// Función para buscar productos
-function buscarProductos() {
-    const query = document.getElementById('busqueda').value.toLowerCase();
-
-    if (query) {
-        productosFiltrados = productos.filter(producto =>
-            producto.nombre.toLowerCase().includes(query) || producto.descripcion.toLowerCase().includes(query)
-        );
-    } else {
-        productosFiltrados = [...productos];  // Si no hay texto en la búsqueda, mostramos todos los productos
-    }
-    
-    mostrarProductos();  // Volver a renderizar los productos filtrados
-}
-
-// Inicialmente cargar los productos cuando la página se carga
-cargarProductos();
 
 // Agregar producto al carrito
 function agregarAlCarrito(idProducto) {
@@ -76,17 +97,28 @@ function agregarAlCarrito(idProducto) {
                 title: 'Sin stock suficiente',
                 text: 'No hay suficiente stock para agregar más unidades',
             });
+            return;
         }
     } else {
         carrito.push({ ...producto, cantidad: 1 });
     }
 
     actualizarCarrito();
+    
+    Swal.fire({
+        icon: 'success',
+        title: 'Producto agregado',
+        text: 'El producto se ha agregado al carrito',
+        timer: 1500,
+        showConfirmButton: false
+    });
 }
 
 // Actualizar el carrito en pantalla
 function actualizarCarrito() {
     const tbody = document.querySelector('#tabla-carrito tbody');
+    if (!tbody) return;
+    
     tbody.innerHTML = '';
 
     let subtotal = 0;
@@ -114,9 +146,13 @@ function actualizarCarrito() {
     const iva = subtotal * 0.19;
     const total = subtotal + iva;
 
-    document.getElementById('subtotal').textContent = subtotal.toFixed(2);
-    document.getElementById('iva').textContent = iva.toFixed(2);
-    document.getElementById('total-venta').textContent = total.toFixed(2);
+    const subtotalElement = document.getElementById('subtotal');
+    const ivaElement = document.getElementById('iva');
+    const totalElement = document.getElementById('total-venta');
+
+    if (subtotalElement) subtotalElement.textContent = subtotal.toFixed(2);
+    if (ivaElement) ivaElement.textContent = iva.toFixed(2);
+    if (totalElement) totalElement.textContent = total.toFixed(2);
 }
 
 // Eliminar una unidad del carrito
@@ -125,7 +161,7 @@ function eliminarUno(idProducto) {
     if (itemCarrito && itemCarrito.cantidad > 1) {
         itemCarrito.cantidad--;
     } else {
-        carrito = carrito.filter(item => item.id !== idProducto); // Si solo queda uno, lo elimina
+        carrito = carrito.filter(item => item.id !== idProducto);
     }
     actualizarCarrito();
 }
@@ -148,7 +184,7 @@ function actualizarStockProducto(idProducto, nuevaCantidad) {
 }
 
 // Finalizar compra
-document.getElementById('finalizar-compra').addEventListener('click', () => {
+function finalizarCompra() {
     if (carrito.length === 0) {
         Swal.fire({
             icon: 'warning',
@@ -158,6 +194,24 @@ document.getElementById('finalizar-compra').addEventListener('click', () => {
         return;
     }
 
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¿Deseas finalizar la compra?",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, finalizar compra',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            procesarCompra();
+        }
+    });
+}
+
+// Procesar la compra
+function procesarCompra() {
     const actualizaciones = carrito.map(item => {
         const producto = productos.find(p => p.id === item.id);
         const nuevaCantidadDisponible = producto.cantidad_disponible - item.cantidad;
@@ -169,7 +223,7 @@ document.getElementById('finalizar-compra').addEventListener('click', () => {
             Swal.fire({
                 icon: 'success',
                 title: 'Compra finalizada',
-                text: 'Compra finalizada exitosamente',
+                text: 'La compra se ha realizado exitosamente',
             });
             carrito = [];
             actualizarCarrito();
@@ -183,4 +237,4 @@ document.getElementById('finalizar-compra').addEventListener('click', () => {
                 text: 'Hubo un problema al finalizar la compra. Intenta nuevamente.',
             });
         });
-});
+}
