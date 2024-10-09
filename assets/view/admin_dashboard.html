@@ -183,10 +183,14 @@
     <!-- Sección Ver Productos -->
     <section id="ver-productos" class="content-section" style="display: none;">
         <h1>Lista de Productos</h1>
-        <!-- Implementar Barra de Busqueda -->
-            <!-- Contenido de la lista de productos -->
-            <div id="productos-lista"></div>
-        <!-- Contenido de la lista de productos -->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Buscar por ID o nombre...">
+            <select id="searchType">
+                <option value="nombre">Buscar por Nombre</option>
+                <option value="codigo">Buscar por ID</option>
+            </select>
+        </div>
+        <div id="productos-grid"></div>  <!-- Nuevo contenedor para los productos -->
     </section>
 
     <!-- Sección Crear Empleados -->
@@ -196,10 +200,18 @@
     </section>
 
     <!-- Sección Ver Empleados -->
-    <section id="ver-empleados" class="content-section" style="display: none;">
-        <h1>Lista de Empleados</h1>
-        <!-- Contenido de la lista de empleados -->
-    </section>
+<section id="ver-empleados" class="content-section" style="display: none;">
+    <h1>Lista de Empleados</h1>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Buscar por Identificación o Nombre...">
+        <select id="searchType">
+            <option value="nombre">Buscar por Nombre</option>
+            <option value="identificacion">Buscar por Identificación</option>
+        </select>
+    </div>
+    <div id="empleados-grid"></div> <!-- Contenedor para mostrar empleados -->
+</section>
+
 
     <!-- Sección Ver Inventario -->
     <section id="ver-inventario" class="content-section" style="display: none;">
@@ -260,8 +272,6 @@
         </section>
     </div>
 </section>
-
-
 
 </main>
 <!-- MAIN -->
