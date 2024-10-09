@@ -3,6 +3,7 @@
 // Variables globales
 let carrito = [];
 let productos = [];
+let productosFiltrados = [];  // Para mantener el listado de productos filtrados
 
 // Cargar productos desde la API
 function cargarProductos() {
@@ -10,6 +11,7 @@ function cargarProductos() {
         .then(response => response.json())
         .then(data => {
             productos = data;
+            productosFiltrados = [...productos]; // Inicializamos productos filtrados
             mostrarProductos();
         })
         .catch(error => console.error('Error:', error));
@@ -20,7 +22,7 @@ function mostrarProductos() {
     const listaProductos = document.getElementById('lista-productos');
     listaProductos.innerHTML = ''; // Limpiar lista antes de volver a cargar
 
-    productos.forEach(producto => {
+    productosFiltrados.forEach(producto => {
         const productoDiv = document.createElement('div');
         productoDiv.classList.add('producto');
         productoDiv.innerHTML = `
@@ -34,6 +36,21 @@ function mostrarProductos() {
     });
 }
 
+// Función para buscar productos
+function buscarProductos() {
+    const query = document.getElementById('busqueda').value.toLowerCase();
+
+    if (query) {
+        productosFiltrados = productos.filter(producto =>
+            producto.nombre.toLowerCase().includes(query) || producto.descripcion.toLowerCase().includes(query)
+        );
+    } else {
+        productosFiltrados = [...productos];  // Si no hay texto en la búsqueda, mostramos todos los productos
+    }
+    
+    mostrarProductos();  // Volver a renderizar los productos filtrados
+}
+
 // Inicialmente cargar los productos cuando la página se carga
 cargarProductos();
 
@@ -41,7 +58,11 @@ cargarProductos();
 function agregarAlCarrito(idProducto) {
     const producto = productos.find(p => p.id === idProducto);
     if (!producto || producto.cantidad_disponible <= 0) {
-        alert('Este producto no está disponible');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Producto no disponible',
+            text: 'Este producto no está disponible en stock',
+        });
         return;
     }
 
@@ -50,7 +71,11 @@ function agregarAlCarrito(idProducto) {
         if (itemCarrito.cantidad < producto.cantidad_disponible) {
             itemCarrito.cantidad++;
         } else {
-            alert('No hay suficiente stock');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sin stock suficiente',
+                text: 'No hay suficiente stock para agregar más unidades',
+            });
         }
     } else {
         carrito.push({ ...producto, cantidad: 1 });
@@ -128,7 +153,7 @@ document.getElementById('finalizar-compra').addEventListener('click', () => {
         Swal.fire({
             icon: 'warning',
             title: 'Carrito vacío',
-            text: 'El carrito está vacío',
+            text: 'El carrito está vacío. No puedes proceder con la compra.',
         });
         return;
     }
@@ -155,51 +180,7 @@ document.getElementById('finalizar-compra').addEventListener('click', () => {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                text: 'Hubo un problema al finalizar la compra',
+                text: 'Hubo un problema al finalizar la compra. Intenta nuevamente.',
             });
         });
 });
-
-
-
-// Filtrar productos en base al término de búsqueda
-function filtrarProductos() {
-    const terminoBusqueda = document.getElementById('busqueda').value.toLowerCase();
-    
-    const productosFiltrados = productos.filter(producto => 
-        producto.codigo_producto.toString().toLowerCase().includes(terminoBusqueda) ||
-        producto.nombre.toLowerCase().includes(terminoBusqueda)
-    );
-    
-    mostrarProductos(productosFiltrados);
-}
-
-// Modifica la función mostrarProductos para aceptar una lista de productos a mostrar
-function mostrarProductos(productosAMostrar = productos) {
-    const listaProductos = document.getElementById('lista-productos');
-    listaProductos.innerHTML = ''; // Limpiar lista antes de volver a cargar
-
-    productosAMostrar.forEach(producto => {
-        const productoDiv = document.createElement('div');
-        productoDiv.classList.add('producto');
-        productoDiv.innerHTML = `
-            <h3>${producto.nombre}</h3>
-            <p>${producto.descripcion}</p>
-            <p>Precio: $${producto.precio}</p>
-            <p>Disponibles: ${producto.cantidad_disponible}</p>
-            <button onclick="agregarAlCarrito(${producto.id})">Agregar al Carrito</button>
-        `;
-        listaProductos.appendChild(productoDiv);
-    });
-}
-
-// Modifica cargarProductos para que, al final, filtre los productos con el término actual de búsqueda
-function cargarProductos() {
-    fetch('http://172.16.101.161:8080/ColorPop/api/productos')
-        .then(response => response.json())
-        .then(data => {
-            productos = data;
-            filtrarProductos(); // Filtra con el término de búsqueda actual
-        })
-        .catch(error => console.error('Error:', error));
-}

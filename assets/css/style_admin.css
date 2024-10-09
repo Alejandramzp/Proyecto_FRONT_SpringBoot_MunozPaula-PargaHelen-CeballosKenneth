@@ -1226,3 +1226,62 @@ body {
         padding: 8px 16px;
     }
 }
+
+/**/
+.box-info2 {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.quote-item {
+    background: var(--light);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    margin-top: 30px; /* Despegar un poco más de arriba */
+}
+
+.quote-item i {
+    font-size: 30px;
+    color: var(--blue);
+}
+
+.text h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.text p {
+    margin: 10px 0 0;
+    font-size: 16px;
+    color: var(--dark-grey);
+    font-style: italic;
+}
+
+/* Estilos para el modo oscuro */
+body.dark .quote-item {
+    background: var(--light);  /* Fondo oscuro */
+    color: var(--dark); /* Texto claro */
+}
+
+body.dark .quote-item i {
+    color: var(--yellow); /* Ícono amarillo */
+}
+
+body.dark .text h3 {
+    color: var(--dark); /* Título en claro */
+}
+
+body.dark .text p {
+    color: var(--light-grey); /* Cita en gris claro */
+}

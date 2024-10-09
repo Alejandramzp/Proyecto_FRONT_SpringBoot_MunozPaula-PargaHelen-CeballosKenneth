@@ -65,12 +65,6 @@
             </a>
         </li>
         <li>
-            <a href="#" id="hacer-recibo-btn">
-                <i class='bx bxs-receipt'></i>
-                <span class="text">Hacer Recibo</span>
-            </a>
-        </li>
-        <li>
             <a href="#" id="gestionar-carrito-btn">
                 <i class='bx bxs-cart-add'></i>
                 <span class="text">Carrito</span>
@@ -78,7 +72,7 @@
         </li>
         <li>
             <a href="#" id="ver-facturas-btn">
-                <i class='bx bxs-file-blank'></i>
+                <i class='bx bxs-receipt'></i>
                 <span class="text">Ver Facturas</span>
             </a>
         </li>        
@@ -131,17 +125,18 @@
     <section id="inicio" class="content-section">
         <ul class="box-info">
             <li>
-                <i class='bx bx-user-circle'></i>
+                <i class='bx bx-cog'></i>
                 <span class="text">
                     <h3 class="user-welcome">¡Hola, Administrador!</h3>
-                    <p>Esperamos que tengas un excelente día. ;)</p>
+                    <p>Listo para comenzar el día?. ;)</p>
                 </span>
             </li>
+            
             <li>
                 <i class='bx bxs-dollar-circle'></i>
                 <span class="text">
                     <h3>$0</h3>
-                    <p>Total de Ventas del Mes</p>
+                    <p>Total de Ventas del Mes.</p>
                 </span>
             </li>
         </ul>
@@ -166,7 +161,17 @@
                     </tbody>
                 </table>
             </div>
-        </div>        
+        </div>   
+        
+        <ul class="box-info2">
+            <li class="quote-item">
+                <i class='bx bx-quote-left'></i>
+                <span class="text">
+                    <h3 class="user-welcome">Frase del Día:</h3>
+                    <p id="quote"></p>
+                </span>
+            </li>
+        </ul>
     </section>    
 
     <!-- Sección Crear Productos -->
@@ -178,6 +183,9 @@
     <!-- Sección Ver Productos -->
     <section id="ver-productos" class="content-section" style="display: none;">
         <h1>Lista de Productos</h1>
+        <!-- Implementar Barra de Busqueda -->
+            <!-- Contenido de la lista de productos -->
+            <div id="productos-lista"></div>
         <!-- Contenido de la lista de productos -->
     </section>
 
@@ -201,14 +209,14 @@
 
     <!-- Sección Ver Ventas -->
     <section id="ver-ventas" class="content-section" style="display: none;">
-        <h1>Ventas del Mes</h1>
-        <!-- Contenido de ventas -->
+        <h1>Graficas de Ventas del año</h1>
+        <!-- Contenido de facturas -->
     </section>
 
-    <!-- Sección Hacer Recibo -->
-    <section id="hacer-recibo" class="content-section" style="display: none;">
-        <h1>Hacer un Recibo</h1>
-        <!-- Contenido para hacer un recibo -->
+    <!-- Sección Ver Facturas -->
+    <section id="ver-facturas" class="content-section" style="display: none;">
+        <h1>Consulta la Factura por ID</h1>
+        <!-- Contenido de facturas -->
     </section>
 
 <!-- Sección Gestionar Carrito -->
@@ -267,5 +275,7 @@
     <script src="/assets/js/inventario.js"></script>
     <script src="/assets/js/carrito.js"></script>
     <script src="/assets/js/activos.js"></script>
+    <script src="/assets/js/ventas.js"></script>
+    <script src="/assets/js/cajero.js"></script>
 </body>
 </html>
