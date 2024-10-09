@@ -38,6 +38,8 @@ document.addEventListener("DOMContentLoaded", function() {
             item.classList.add('inventario-item');
             item.innerHTML = `
                 <h3>${producto.nombre}</h3>
+                <p><strong>Precio:</strong><br>${producto.precio}</p>
+                <p><strong>Código:</strong><br>${producto.codigo_producto}</p>
                 <p><strong>Cantidad disponible:</strong><br> ${producto.cantidad_disponible}</p>
             `;
             inventarioContainer.appendChild(item);
