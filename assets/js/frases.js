@@ -8,7 +8,6 @@ const quotes = [
     "Todo lo que necesitas es amor. - The Beatles",
     "La vida es demasiado corta para perder el tiempo odiando a alguien. - Anonymous",
     "Hazlo con pasión o no lo hagas. - Rosa Nouchette Carey",
-    "El único modo de hacer un gran trabajo es amar lo que haces. - Steve Jobs",
     "La mayor gloria no es nunca caer, sino levantarse siempre. - Confucio",
     "No se trata de cuántas veces caes, sino de cuántas veces te levantas. - Vince Lombardi",
     "La mente es todo. Lo que pienses, serás. - Buda",
@@ -18,7 +17,15 @@ const quotes = [
     "El cambio es la ley de la vida. Y los que miran solo al pasado o al presente, seguramente se perderán el futuro. - John F. Kennedy",
     "No hay nada imposible, porque los sueños de ayer son las esperanzas de hoy y pueden convertirse en realidad mañana. - Walt Disney",
     "La vida es como andar en bicicleta: para mantener el equilibrio, debes seguir adelante. - Albert Einstein",
-    "Todo lo que somos es el resultado de lo que hemos pensado. - Buda"
+    "Todo lo que somos es el resultado de lo que hemos pensado. - Buda",
+    "La mayor parte de lo que llamamos pensamiento son solo hábitos de pensamiento. - David Allen",
+    "El viaje de mil millas comienza con un solo paso. - Lao Tzu",
+    "El optimismo es la fe que conduce al logro. Nada se puede hacer sin esperanza y confianza. - Helen Keller",
+    "A veces, las preguntas son complicadas y las respuestas son sencillas. - Dr. Seuss",
+    "No dejes que el ruido de las opiniones de los demás ahogue tu propia voz interior. - Steve Jobs",
+    "La vida es realmente simple, pero insistimos en hacerla complicada. - Confucio",
+    "No esperes. Nunca va a ser el momento perfecto. - Napoleon Hill",
+    "La creatividad es la inteligencia divirtiéndose. - Albert Einstein"
 ];
 
 const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];

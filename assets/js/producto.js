@@ -95,7 +95,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Función para obtener productos
     function obtenerProductos() {
-        fetch(baseURL)
+        fetch(baseURL, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+        })
             .then(response => response.json())
             .then(productos => {
                 productosOriginales = productos; // Guardar los productos originales

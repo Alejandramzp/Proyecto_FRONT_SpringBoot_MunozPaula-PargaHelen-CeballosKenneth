@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/assets/css/styles_index.css">  <!-- Ruta del CSS -->
     <link rel="shortcut icon" href="/assets/img/Logo_CP.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <script defer src="/assets/js/login.js"></script>  <!-- Lógica del login -->
 </head>
 <body>
     <div class="container">
@@ -31,7 +30,7 @@
                     <input type="checkbox" id="rememberMe">
                     <label for="rememberMe">Recordarme</label>
                 </div>
-                <button type="button" class="btn" onclick="redirectToDashboard()">Iniciar Sesión</button>
+                <button type="submit" class="btn">Iniciar Sesión</button>
             </form>
             
             <div class="password-link">
@@ -41,5 +40,6 @@
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="./assets/js/token.js"></script>
 
 </html>

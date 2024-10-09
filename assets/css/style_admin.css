@@ -1467,3 +1467,29 @@ body.dark h1 {
         padding: 8px;
     }
 }
+
+/**/
+
+body.dark #inicio p {
+    color: var(--dark);
+}
+
+/**/
+
+/* Estilos para títulos en modo oscuro */
+body.dark h1 {
+    color: var(--light); /* Color claro para el título principal */
+}
+
+body.dark h2 {
+    color: var(--light-blue); /* Color claro para el subtítulo */
+}
+
+/* Estilos para títulos en modo normal */
+body h1 {
+    color: var(--light); /* Color oscuro para el título principal */
+}
+
+body h2 {
+    color: var(--blue); /* Color para el subtítulo */
+}

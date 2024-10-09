@@ -25,22 +25,33 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Función para cargar los empleados
     function loadActiveEmployees() {
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                // Filtrar los empleados activos
-                const activeEmployees = data.filter(emp => emp.estado === "Activo");
+        fetch(apiUrl, {  // Agregada la coma aquí
+            method: 'GET',  // Cambiado a GET para obtener la lista de empleados
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Filtrar los empleados activos
+            const activeEmployees = data.filter(emp => emp.estado === "Activo");
 
-                // Vaciar el contenido del tbody
-                tbody.innerHTML = '';
+            // Vaciar el contenido del tbody
+            tbody.innerHTML = '';
 
-                // Añadir cada empleado activo a la tabla
-                activeEmployees.forEach(emp => {
-                    const row = createEmployeeRow(emp);
-                    tbody.appendChild(row);
-                });
-            })
-            .catch(error => console.error('Error fetching employees:', error));
+            // Añadir cada empleado activo a la tabla
+            activeEmployees.forEach(emp => {
+                const row = createEmployeeRow(emp);
+                tbody.appendChild(row);
+            });
+        })
+        .catch(error => console.error('Error fetching employees:', error));
     }
 
     // Evento click en el botón de inicio para cargar los empleados

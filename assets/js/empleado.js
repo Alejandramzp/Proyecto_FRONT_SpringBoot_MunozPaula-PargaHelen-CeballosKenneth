@@ -81,13 +81,26 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Función para obtener empleados
     function obtenerEmpleados() {
-        fetch(baseURL)
-            .then(response => response.json())
-            .then(empleados => {
-                mostrarEmpleados(empleados);
-            })
-            .catch(error => console.error('Error al obtener empleados:', error));
+        console.log('Intentando obtener empleados...');
+        fetch(baseURL, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error en la respuesta: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(empleados => {
+            mostrarEmpleados(empleados);
+        })
+        .catch(error => console.error('Error al obtener empleados:', error));
     }
+    
 
     // Función para mostrar empleados
     function mostrarEmpleados(empleados) {
@@ -120,6 +133,7 @@ document.addEventListener("DOMContentLoaded", function() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify(empleado)
         })
@@ -179,90 +193,132 @@ document.addEventListener("DOMContentLoaded", function() {
     };
 
     // Función para editar un empleado
-    window.editarEmpleado = function(id) {
-        fetch(`${baseURL}/${id}`)
-            .then(response => response.json())
-            .then(empleado => {
-                crearEmpleadosSection.style.display = "block";
-                verEmpleadosSection.style.display = "none";
-                
-                crearEmpleadosSection.innerHTML = `
-                    <form id="form-editar-empleado" class="employee-form">
-                        <h2>Editar Empleado</h2>
-                        <div class="form-group">
-                            <label for="identificacion" class="form-label">Identificación:</label>
-                            <input type="text" id="identificacion" class="form-input" value="${empleado.identificacion}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="nombres" class="form-label">Nombres:</label>
-                            <input type="text" id="nombres" class="form-input" value="${empleado.nombres}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="apellidos" class="form-label">Apellidos:</label>
-                            <input type="text" id="apellidos" class="form-input" value="${empleado.apellidos}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="direccion" class="form-label">Dirección:</label>
-                            <input type="text" id="direccion" class="form-input" value="${empleado.direccion}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="telefono" class="form-label">Teléfono:</label>
-                            <input type="text" id="telefono" class="form-input" value="${empleado.telefono}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="rol" class="form-label">Rol:</label>
-                            <select id="rol" class="form-select" required>
-                                <option value="Cajero" ${empleado.rol === 'Cajero' ? 'selected' : ''}>Cajero</option>
-                                <option value="Administrador" ${empleado.rol === 'Administrador' ? 'selected' : ''}>Administrador</option>
-                                <option value="Gerente" ${empleado.rol === 'Gerente' ? 'selected' : ''}>Gerente</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="estado" class="form-label">Estado:</label>
-                            <select id="estado" class="form-select" required>
-                                <option value="Activo" ${empleado.estado === 'Activo' ? 'selected' : ''}>Activo</option>
-                                <option value="Inactivo" ${empleado.estado === 'Inactivo' ? 'selected' : ''}>Inactivo</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="submit-btn">Actualizar Empleado</button>
-                    </form>
-                `;
-                
-                document.getElementById('form-editar-empleado').addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    const empleadoEditado = {
-                        identificacion: document.getElementById('identificacion').value,
-                        nombres: document.getElementById('nombres').value,
-                        apellidos: document.getElementById('apellidos').value,
-                        direccion: document.getElementById('direccion').value,
-                        telefono: document.getElementById('telefono').value,
-                        rol: document.getElementById('rol').value,
-                        estado: document.getElementById('estado').value
-                    };
-                    actualizarEmpleado(id, empleadoEditado);
-                });
-            })
-            .catch(error => console.error('Error al obtener empleado:', error));
-    };
+window.editarEmpleado = function(id) {
+    console.log(`Intentando editar el empleado con ID: ${id}`);
+    
+    fetch(`${baseURL}/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Error al obtener los datos del empleado. Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(empleado => {
+        console.log('Empleado obtenido:', empleado);
+        
+        crearEmpleadosSection.style.display = "block";
+        verEmpleadosSection.style.display = "none";
+        
+        crearEmpleadosSection.innerHTML = `
+            <form id="form-editar-empleado" class="employee-form">
+                <h2>Editar Empleado</h2>
+                <div class="form-group">
+                    <label for="identificacion" class="form-label">Identificación:</label>
+                    <input type="text" id="identificacion" class="form-input" value="${empleado.identificacion}" required>
+                </div>
+                <div class="form-group">
+                    <label for="nombres" class="form-label">Nombres:</label>
+                    <input type="text" id="nombres" class="form-input" value="${empleado.nombres}" required>
+                </div>
+                <div class="form-group">
+                    <label for="apellidos" class="form-label">Apellidos:</label>
+                    <input type="text" id="apellidos" class="form-input" value="${empleado.apellidos}" required>
+                </div>
+                <div class="form-group">
+                    <label for="direccion" class="form-label">Dirección:</label>
+                    <input type="text" id="direccion" class="form-input" value="${empleado.direccion}" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono" class="form-label">Teléfono:</label>
+                    <input type="text" id="telefono" class="form-input" value="${empleado.telefono}" required>
+                </div>
+                <div class="form-group">
+                    <label for="rol" class="form-label">Rol:</label>
+                    <select id="rol" class="form-select" required>
+                        <option value="Cajero" ${empleado.rol === 'Cajero' ? 'selected' : ''}>Cajero</option>
+                        <option value="Administrador" ${empleado.rol === 'Administrador' ? 'selected' : ''}>Administrador</option>
+                        <option value="Gerente" ${empleado.rol === 'Gerente' ? 'selected' : ''}>Gerente</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="estado" class="form-label">Estado:</label>
+                    <select id="estado" class="form-select" required>
+                        <option value="Activo" ${empleado.estado === 'Activo' ? 'selected' : ''}>Activo</option>
+                        <option value="Inactivo" ${empleado.estado === 'Inactivo' ? 'selected' : ''}>Inactivo</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Actualizar Empleado</button>
+            </form>
+        `;
+
+        // Escuchar el envío del formulario de edición
+        document.getElementById('form-editar-empleado').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const empleadoEditado = {
+                identificacion: document.getElementById('identificacion').value,
+                nombres: document.getElementById('nombres').value,
+                apellidos: document.getElementById('apellidos').value,
+                direccion: document.getElementById('direccion').value,
+                telefono: document.getElementById('telefono').value,
+                rol: document.getElementById('rol').value,
+                estado: document.getElementById('estado').value
+            };
+            
+            console.log('Empleado editado:', empleadoEditado);
+            actualizarEmpleado(id, empleadoEditado);
+        });
+    })
+    .catch(error => {
+        console.error('Error al obtener empleado:', error);
+    });
+};
+
 
     // Función para actualizar un empleado
-    function actualizarEmpleado(id, empleado) {
-        fetch(`${baseURL}/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(empleado)
-        })
-        .then(response => response.json())
-        .then(data => {
-            Swal.fire(
-                'Empleado actualizado!',
-                'El empleado ha sido actualizado correctamente.',
-                'success'
-            );
-            obtenerEmpleados();
-        })
-        .catch(error => console.error('Error al actualizar empleado:', error));
-    }
+function actualizarEmpleado(id, empleado) {
+    console.log(`Intentando actualizar el empleado con ID: ${id}`);
+    
+    fetch(`${baseURL}/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(empleado)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Error en la actualización del empleado. Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Respuesta del servidor:', data);
+
+        Swal.fire(
+            'Empleado actualizado!',
+            'El empleado ha sido actualizado correctamente.',
+            'success'
+        );
+        
+        obtenerEmpleados();  // Actualizar la lista de empleados
+    })
+    .catch(error => {
+        console.error('Error al actualizar empleado:', error);
+
+        Swal.fire(
+            'Error!',
+            'Hubo un problema al actualizar el empleado.',
+            'error'
+        );
+    });
+}
+
 });
