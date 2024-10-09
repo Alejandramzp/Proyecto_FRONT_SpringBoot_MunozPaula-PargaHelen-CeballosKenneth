@@ -1,0 +1,120 @@
+/* Estilos Generales */
+.table-data {
+    width: 100%;
+    padding: 20px;
+    background-color: var(--light);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-top: 20px;
+    font-family: var(--poppins);
+}
+
+.table-data .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.table-data .head h3 {
+    font-size: 1.2rem;
+    color: var(--dark);
+    margin: 0;
+}
+
+.table-data .head i {
+    font-size: 1.5rem;
+    color: var(--blue);
+    cursor: pointer;
+}
+
+.active-employees-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.active-employees-table thead th {
+    background-color: var(--blue);
+    color: var(--light);
+    text-align: left;
+    padding: 12px;
+    font-weight: bold;
+}
+
+.active-employees-table tbody td {
+    padding: 12px;
+    border-bottom: 1px solid var(--grey);
+    color: var(--dark);
+}
+
+.active-employees-table tbody tr:hover {
+    background-color: var(--light-blue);
+}
+
+.active-employees-table th,
+.active-employees-table td {
+    text-align: left;
+}
+
+/* Estilos Responsivos */
+@media screen and (max-width: 768px) {
+    /* Para tablets y pantallas medianas */
+    .table-data {
+        padding: 15px;
+    }
+    
+    .table-data .head h3 {
+        font-size: 1rem;
+    }
+
+    .table-data .head i {
+        font-size: 1.2rem;
+    }
+
+    .active-employees-table thead {
+        display: none;
+    }
+
+    .active-employees-table, .active-employees-table tbody, .active-employees-table tr, .active-employees-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .active-employees-table tr {
+        margin-bottom: 10px;
+        border-bottom: 1px solid var(--grey);
+    }
+
+    .active-employees-table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+        font-size: 0.9rem;
+    }
+
+    .active-employees-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        width: calc(50% - 15px);
+        font-weight: bold;
+        text-align: left;
+        color: var(--dark-grey);
+    }
+}
+
+/* Estilos para móviles */
+@media screen and (max-width: 480px) {
+    .table-data {
+        padding: 1px;
+    }
+
+    .active-employees-table tbody td {
+        font-size: 0.8rem;
+        padding: 1px 0;
+    }
+
+    .active-employees-table tbody td::before {
+        font-size: 0.8rem;
+    }
+}
