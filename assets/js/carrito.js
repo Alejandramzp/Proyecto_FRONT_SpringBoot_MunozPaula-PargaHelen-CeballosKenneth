@@ -105,13 +105,7 @@ function agregarAlCarrito(idProducto) {
 
     actualizarCarrito();
     
-    Swal.fire({
-        icon: 'success',
-        title: 'Producto agregado',
-        text: 'El producto se ha agregado al carrito',
-        timer: 1500,
-        showConfirmButton: false
-    });
+    
 }
 
 // Actualizar el carrito en pantalla
