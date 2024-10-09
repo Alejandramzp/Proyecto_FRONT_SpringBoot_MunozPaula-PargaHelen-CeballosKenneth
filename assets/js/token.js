@@ -11,8 +11,8 @@ document.getElementById('loginForm').addEventListener('submit', async function (
     const password = document.getElementById('password').value;
 
     // Verificar si se están obteniendo los valores correctamente
-    console.log('username:', username);
-    console.log('Password:', password);
+    // console.log('username:', username);
+    // console.log('Password:', password);
 
     // Comprobar si los campos están vacíos
     if (!username || !password) {
@@ -47,7 +47,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
         if (data.token) {
             // Guardar el token en localStorage
             localStorage.setItem('token', data.token);
-            console.log('Token guardado:', data.token);
+            // console.log('Token guardado:', data.token);
 
             // Guardar el rol en localStorage según el email
             let role;
@@ -65,7 +65,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
                     role = 'Usuario'; // O cualquier rol por defecto si es necesario
             }
             localStorage.setItem('rol', role);
-            console.log('Rol guardado:', role); 
+            // console.log('Rol guardado:', role); 
             alert("hola");
             comprobarRol(); // Llama a la función para redirigir según el rol
         } else {
@@ -86,11 +86,11 @@ function comprobarRol() {
         switch (rol) {
             case 'Cajero':
 
-                window.location.href = 'http://172.16.101.109/assets/view/cajero_dashboard.html';
+                window.location.href = 'http://127.0.0.1:5500/assets/view/cajero_dashboard.html';
                 break;
             case 'Gerente':
 
-                window.location.href = 'http://172.16.101.109/assets/view/gerente_dashboard.html';
+                window.location.href = 'http://127.0.0.1:5500/assets/view/gerente_dashboard.html';
                 break;
             case 'Administrador':
 

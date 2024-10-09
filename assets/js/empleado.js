@@ -160,9 +160,7 @@ window.eliminarEmpleado = function(id) {
         confirmButtonText: 'Sí, despedirlo >:)!',
         cancelButtonText: 'Cancelar'
     }).then((result) => {
-        if (result.isConfirmed) {
-            console.log(`Intentando eliminar al empleado con ID: ${id}`);
-            
+        if (result.isConfirmed) {            
             fetch(`${baseURL}/${id}`, {
                 method: 'DELETE',
                 headers: {
@@ -195,7 +193,6 @@ window.eliminarEmpleado = function(id) {
                 );
             });
         } else {
-            console.log('Proceso de eliminación cancelado por el usuario.');
             Swal.fire(
                 'Cancelado',
                 'Proceso de despedir cancelado.',
@@ -207,9 +204,7 @@ window.eliminarEmpleado = function(id) {
 
 
     // Función para editar un empleado
-window.editarEmpleado = function(id) {
-    console.log(`Intentando editar el empleado con ID: ${id}`);
-    
+window.editarEmpleado = function(id) {    
     fetch(`${baseURL}/${id}`, {
         method: 'GET',
         headers: {
@@ -223,9 +218,7 @@ window.editarEmpleado = function(id) {
         }
         return response.json();
     })
-    .then(empleado => {
-        console.log('Empleado obtenido:', empleado);
-        
+    .then(empleado => {        
         crearEmpleadosSection.style.display = "block";
         verEmpleadosSection.style.display = "none";
         
@@ -285,7 +278,6 @@ window.editarEmpleado = function(id) {
                 estado: document.getElementById('estado').value
             };
             
-            console.log('Empleado editado:', empleadoEditado);
             actualizarEmpleado(id, empleadoEditado);
         });
     })
@@ -296,9 +288,7 @@ window.editarEmpleado = function(id) {
 
 
     // Función para actualizar un empleado
-function actualizarEmpleado(id, empleado) {
-    console.log(`Intentando actualizar el empleado con ID: ${id}`);
-    
+function actualizarEmpleado(id, empleado) {    
     fetch(`${baseURL}/${id}`, {
         method: 'PUT',
         headers: {
@@ -314,8 +304,6 @@ function actualizarEmpleado(id, empleado) {
         return response.json();
     })
     .then(data => {
-        console.log('Respuesta del servidor:', data);
-
         Swal.fire(
             'Empleado actualizado!',
             'El empleado ha sido actualizado correctamente.',

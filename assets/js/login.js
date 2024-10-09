@@ -48,11 +48,14 @@ function redirectToDashboard() {
 }
 
 
-function logout() {
-    // Limpiar la sesión o los datos guardados
-    sessionStorage.removeItem('loggedInUser');  // Si usas sessionStorage para recordar al usuario
-    localStorage.removeItem('loggedInUser');    // Si usas localStorage
+// Event listener para el logout
+document.getElementById('logout').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevenir el comportamiento por defecto del enlace
 
-    // Redirigir al usuario al inicio de sesión
-    window.location.href = './index.html';  // Asegúrate de que esta ruta sea la correcta para tu página de inicio de sesión
-}
+    // Eliminar los items del localStorage
+    localStorage.removeItem('token');
+    localStorage.removeItem('rol');
+    
+    // Redirigir a la página de inicio
+    window.location.href = 'http://127.0.0.1:5500/index.html'; // Cambia 'index.html' por la URL correcta de tu página de inicio
+});

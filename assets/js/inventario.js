@@ -14,9 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // Función para obtener inventario
-function obtenerInventario() {
-    console.log('Obteniendo el inventario de productos...');
-    
+function obtenerInventario() {    
     fetch(baseURL, {
         method: 'GET',
         headers: {
@@ -32,7 +30,6 @@ function obtenerInventario() {
     })
     .then(productos => {
         todosLosProductos = productos; // Guardamos todos los productos
-        console.log('Productos obtenidos:', productos);
         mostrarInventario(productos);   // Mostrar los productos en el DOM
     })
     .catch(error => {

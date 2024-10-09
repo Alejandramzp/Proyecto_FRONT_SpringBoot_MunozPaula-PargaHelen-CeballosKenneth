@@ -19,9 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Cargar productos desde la API
-function cargarProductos() {
-    console.log('Cargando productos...');
-    
+function cargarProductos() {    
     fetch('http://172.16.101.161:8080/ColorPop/api/productos', {
         method: 'GET',
         headers: {
@@ -39,7 +37,6 @@ function cargarProductos() {
         productos = data;
         productosFiltrados = [...productos];
         mostrarProductos(); // Mostrar los productos en la interfaz
-        console.log('Productos cargados:', productos); // Depuración
     })
     .catch(error => {
         console.error('Error al cargar productos:', error);
