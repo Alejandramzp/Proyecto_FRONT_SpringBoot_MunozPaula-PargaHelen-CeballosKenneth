@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-	<link rel="stylesheet" href="/assets/css/style_admin.css">
+    <link rel="stylesheet" href="/assets/css/style_admin.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="/assets/css/tables_dashboard.css">
     <link rel="stylesheet" href="/assets/css/styles_cajero.css">
-	
+    
     <link rel="shortcut icon" href="/assets/img/Logo_Cp_B.png" type="image/x-icon">
     
     <title>Cajero - ColorPop</title>
@@ -28,7 +28,7 @@
                 <i class='bx bxs-home'></i>
                 <span class="text">Inicio</span>
             </a>
-        </li>                                   
+        </li>             
         <li>
             <a href="#" id="ver-inventario-btn">
                 <i class='bx bx-archive'></i>
@@ -36,17 +36,17 @@
             </a>
         </li>
         <li>
-            <a href="#" id="hacer-recibo-btn">
-                <i class='bx bxs-receipt'></i>
-                <span class="text">Hacer Recibo</span>
-            </a>
-        </li>
-        <li>
             <a href="#" id="gestionar-carrito-btn">
                 <i class='bx bxs-cart-add'></i>
                 <span class="text">Carrito</span>
             </a>
-        </li>      
+        </li>
+        <li>
+            <a href="#" id="ver-facturas-btn">
+                <i class='bx bxs-receipt'></i>
+                <span class="text">Ver Facturas</span>
+            </a>
+        </li>        
     </ul>    
     <ul class="side-menu">
         <li>
@@ -107,32 +107,10 @@
                 <i class='bx bxs-dollar-circle'></i>
                 <span class="text">
                     <h3>$0</h3>
-                    <p>Total de Ventas del dia de Hoy.</p>
+                    <p>Total de Ventas del día de Hoy.</p>
                 </span>
             </li>
-        </ul>
-    
-        <div class="table-data">
-            <div class="order">
-                <div class="head">
-                    <h3>Empleados Activos</h3>
-                </div>
-                <table class="active-employees-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Identificación</th>
-                            <th>Nombre</th>
-                            <th>Apellidos</th>
-                            <th>Rol</th>
-                        </tr>
-                    </thead>
-                    <tbody id="active-employees">
-                        <!-- Aquí se insertarán los empleados activos -->
-                    </tbody>
-                </table>
-            </div>
-        </div> 
+        </ul>  
         
         <ul class="box-info2">
             <li class="quote-item">
@@ -145,110 +123,71 @@
         </ul>
     </section>    
 
-    <!-- Sección Crear Productos -->
-    <section id="crear-productos" class="content-section" style="display: none;">
-        <h1>Crear un nuevo producto</h1>
-        <!-- Formulario o contenido para crear productos -->
-    </section>
-
-    <!-- Sección Ver Productos -->
-    <section id="ver-productos" class="content-section" style="display: none;">
-        <h1>Lista de Productos</h1>
-        <!-- Implementar Barra de Busqueda -->
-            <!-- Contenido de la lista de productos -->
-            <div id="productos-lista"></div>
-        <!-- Contenido de la lista de productos -->
-    </section>
-
-    <!-- Sección Crear Empleados -->
-    <section id="crear-empleados" class="content-section" style="display: none;">
-        <h1>Crear un nuevo empleado</h1>
-        <!-- Formulario o contenido para crear empleados -->
-    </section>
-
-    <!-- Sección Ver Empleados -->
-    <section id="ver-empleados" class="content-section" style="display: none;">
-        <h1>Lista de Empleados</h1>
-        <!-- Implementar Barra de Busqueda -->
-        <!-- Contenido de la lista de empleados -->
-    </section>
-
     <!-- Sección Ver Inventario -->
     <section id="ver-inventario" class="content-section" style="display: none;">
         <h1>Inventario de Productos</h1>
-        <!-- Implementar Barra de Busqueda -->
         <!-- Contenido del inventario -->
     </section>
 
-    <!-- Sección Ver Ventas -->
-    <section id="ver-ventas" class="content-section" style="display: none;">
-        <h1>Ventas del Mes</h1>
-        <!-- Contenido de ventas -->
+    <!-- Sección Ver Facturas -->
+    <section id="ver-facturas" class="content-section" style="display: none;">
+        <h1>Consulta la Factura por ID</h1>
+        <!-- Contenido de facturas -->
     </section>
 
-    <!-- Sección Hacer Recibo -->
-    <section id="hacer-recibo" class="content-section" style="display: none;">
-        <h1>Hacer un Recibo</h1>
-        <!-- Contenido para hacer un recibo -->
+    <!-- Sección Gestionar Carrito -->
+    <section id="gestionar-carrito" class="content-section" style="display: none;">
+        <div id="carrito-contenedor">
+            <!-- Columna de Productos -->
+            <section id="productos">
+                <h2>Productos Disponibles</h2>
+                <input type="text" id="busqueda" placeholder="Buscar por código o nombre" oninput="filtrarProductos()">
+                <div id="lista-productos">
+                    <!-- Los productos se cargarán aquí dinámicamente -->
+                </div>
+            </section>
+
+            <!-- Columna del Carrito -->
+            <section id="carrito">
+                <h2>Tu Carrito</h2>
+                <table id="tabla-carrito">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Total</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Items del carrito se añadirán aquí -->
+                    </tbody>
+                </table>
+
+                <div id="total">
+                    <p>Subtotal: $<span id="subtotal">0</span></p>
+                    <p>IVA (19%): $<span id="iva">0</span></p>
+                    <p>Total: $<span id="total-venta">0</span></p>
+                    <button id="finalizar-compra">Finalizar Compra</button>
+                </div>
+            </section>
+        </div>
     </section>
-
-<!-- Sección Gestionar Carrito -->
-<section id="gestionar-carrito" class="content-section" style="display: none;">
-    <div id="carrito-contenedor">
-        <!-- Columna de Productos -->
-        <section id="productos">
-            <h2>Productos Disponibles</h2>
-            <!-- Implementar Barra de Busqueda -->
-            <input type="text" id="busqueda" placeholder="Buscar por código o nombre" oninput="filtrarProductos()">
-                 <div id="lista-productos">
-            <div id="lista-productos">
-                <!-- Los productos se cargarán aquí dinámicamente -->
-            </div>
-        </section>
-
-        <!-- Columna del Carrito -->
-        <section id="carrito">
-            <h2>Tu Carrito</h2>
-            <table id="tabla-carrito">
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th>Precio</th>
-                        <th>Total</th>
-                        <th>Eliminar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Items del carrito se añadirán aquí -->
-                </tbody>
-            </table>
-
-            <div id="total">
-                <p>Subtotal: $<span id="subtotal">0</span></p>
-                <p>IVA (19%): $<span id="iva">0</span></p>
-                <p>Total: $<span id="total-venta">0</span></p>
-                <button id="finalizar-compra">Finalizar Compra</button>
-            </div>
-        </section>
-    </div>
-</section>
-
-
 
 </main>
 <!-- MAIN -->
 
 </section>
 <!-- CONTENT -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script src="/assets/js/script_admin_Dashboard.js"></script>
-	<script src="/assets/js/empleado.js"></script>
-	<script src="/assets/js/producto.js"></script>
-    <script src="/assets/js/inventario.js"></script>
-    <script src="/assets/js/carrito.js"></script>
-    <script src="/assets/js/activos.js"></script>
-    <script src="/assets/js/ventas.js"></script>
-    <script src="/assets/js/cajero.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/assets/js/script_admin_Dashboard.js"></script>
+<script src="/assets/js/empleado.js"></script>
+<script src="/assets/js/producto.js"></script>
+<script src="/assets/js/inventario.js"></script>
+<script src="/assets/js/carrito.js"></script>
+<script src="/assets/js/activos.js"></script>
+<script src="/assets/js/ventas.js"></script>
+<script src="/assets/js/cajero.js"></script>
 </body>
 </html>
