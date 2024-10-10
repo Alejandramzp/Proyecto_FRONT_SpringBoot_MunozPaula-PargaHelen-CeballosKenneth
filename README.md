@@ -59,33 +59,35 @@ Tecnologias a utilizar
 **Consumo de la API**
 
 - Breve descripción sobre cómo se consume la API, mencionando los verbos HTTP utilizados y ejemplos de rutas:
-  - `GET `: Se utiliza para **obtener datos** de un servidor.
+  - `GET : Se utiliza para **obtener datos** de un servidor.
   - `POST : Se utiliza para **enviar datos** al servidor para **crear un nuevo recurso**..
   - `PUT : Se utiliza para **actualizar un recurso existente** en el servidor.
   - `DELETE : Se utiliza para **eliminar un recurso** en el servidor.
 
-**Funcionamiento**
+Funcionamiento
 
-[Descargar Manual Instructivo](Manual_Instructivo._ColorPop.pdf)
+- [Descargar Manual Instructivo](Manual_Instructivo._ColorPop.pdf)
 
-**Link del sistema POS ColorPop **
-[POS](https://172.16.101.161)
+Link del sistema POS ColorPop
 
-**API para POS Gestión de ventas ColorPop**
+ - POS -> 172.16.101.161
 
-[API_ColorPop](https://github.com/Alejandramzp/Proyecto_BACK_SpringBoot_MunozPaula-PargaHelen-CeballosKenneth.git)
+API para POS Gestión de ventas ColorPop
 
-**Maquetacion**
-[Figma](https://embed.figma.com/design/QjZlq4RTtcSb59PIPMpuS7/Untitled?node-id=0-1&embed-host=share)
+- [API_ColorPop](https://github.com/Alejandramzp/Proyecto_BACK_SpringBoot_MunozPaula-PargaHelen-CeballosKenneth.git)
+
+Maquetacion
+
+- [Figma](https://embed.figma.com/design/QjZlq4RTtcSb59PIPMpuS7/Untitled?node-id=0-1&embed-host=share)
 
 
-**Creado por **
+Creado por:
 
-Kenneth Ceballos
+- Kenneth Ceballos
 
-Paula Muñoz
+- Paula Muñoz
 
-Helen Parga
+- Helen Parga
 
 
 
