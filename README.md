@@ -72,6 +72,9 @@ Tecnologias a utilizar
 
 [API_ColorPop](https://github.com/Alejandramzp/Proyecto_BACK_SpringBoot_MunozPaula-PargaHelen-CeballosKenneth.git)
 
+**Maquetacion**
+[Figma](https://embed.figma.com/design/QjZlq4RTtcSb59PIPMpuS7/Untitled?node-id=0-1&embed-host=share)
+
 **Creado por **
 
 Kenneth Ceballos
