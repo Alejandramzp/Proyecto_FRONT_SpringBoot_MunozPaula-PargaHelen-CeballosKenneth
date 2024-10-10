@@ -87,13 +87,13 @@ function comprobarRol() {
     if (rol) {
         switch (rol) {
             case 'Cajero':
-                window.location.href = 'http://127.0.0.1:5500/assets/view/cajero_dashboard.html';
+                window.location.href = 'http://172.16.101.161/assets/view/cajero_dashboard.html';
                 break;
             case 'Gerente':
-                window.location.href = 'http://127.0.0.1:5500/assets/view/gerente_dashboard.html';
+                window.location.href = 'http://172.16.101.161/assets/view/gerente_dashboard.html';
                 break;
             case 'Administrador':
-                window.location.href = 'http://127.0.0.1:5500/assets/view/admin_dashboard.html';
+                window.location.href = 'http://172.16.101.161/assets/view/admin_dashboard.html';
                 break;
             default:
                 console.log('Rol no reconocido: ' + rol);
